@@ -1,9 +1,16 @@
 import React from 'react'
 import { StyleSheet } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { OnboardScreenProp } from "../RootStackParamsList";
 
-export default function OnboardWelcome() {
+export default function OnboardWelcome({navigation}: any) {
+
     const theme = useTheme()
+
+    const navigateToOnboardScreens = () => {
+        navigation.navigate("OnboardOne")
+    }
 
     return (
         <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -13,7 +20,7 @@ export default function OnboardWelcome() {
                 <Text style={styles.logoText}>down</Text>
             </Layout>
             <Text style={styles.captionText}>Find your rhythm</Text>
-            <Button style={styles.button}>Get Started</Button>
+            <Button style={styles.button} onPress={navigateToOnboardScreens}>Get Started</Button>
         </Layout>
     );
 }
