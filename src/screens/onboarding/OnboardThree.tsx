@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Image, Animated } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import CountdownButton from "../../components/CountdownButton";
+import DanceThreeSVG from "../../../assets/dance/danceThreeSVG";
 
 
 export default function OnboardWelcome() {
@@ -11,11 +12,13 @@ export default function OnboardWelcome() {
 
     return (
         <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={styles.image} source={require("../../../assets/dance/danceOne.png")} />
-            <Text style={styles.titleText}>A step a day</Text>
-            <Text style={styles.captionText}>Dancing is meant to be fun! Let’s take it one step at a time.</Text>
+            {/* <DanceThreeSVG/> */}
+            <Image source={require("../../../assets/dance/danceThree.svg")} />
+            <Image style={styles.image} source={require("../../../assets/dance/danceThree.png")} />
+            <Text style={styles.titleText}>Track your goals</Text>
+            <Text style={styles.captionText}>Tell us your goals so can help you to achieve them.</Text>
             <Layout style={styles.button}>
-                <CountdownButton isPlaying={isPlaying} destination={"OnboardTwo"} />
+                <CountdownButton isPlaying={isPlaying} destination={"OnboardThree"} />
             </Layout>
             
         </Layout>
@@ -24,16 +27,17 @@ export default function OnboardWelcome() {
 
 const styles = StyleSheet.create ({
     image: {
-        width: 213,
+        width: 236,
         height: 236,
         position: 'absolute',
-        top: 85
+        top: 193,
+        left: 139
     },
     titleText: {
         fontSize: 24,
         fontWeight: 'bold',
         position: 'absolute',
-        width: 152,
+        width: 206,
         height: 36,
         top: 470,
         left: 30

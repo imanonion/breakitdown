@@ -11,11 +11,11 @@ export default function OnboardWelcome() {
 
     return (
         <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={styles.image} source={require("../../../assets/dance/danceOne.png")} />
-            <Text style={styles.titleText}>A step a day</Text>
-            <Text style={styles.captionText}>Dancing is meant to be fun! Let’s take it one step at a time.</Text>
+            <Image style={styles.image} source={require("../../../assets/dance/danceTwo.png")} />
+            <Text style={styles.titleText}>Routines made easy</Text>
+            <Text style={styles.captionText}>Combine moves easily to make a choreography routine you can call your own.</Text>
             <Layout style={styles.button}>
-                <CountdownButton isPlaying={isPlaying} destination={"OnboardTwo"} />
+                <CountdownButton isPlaying={isPlaying} destination={"OnboardThree"} />
             </Layout>
             
         </Layout>
@@ -24,16 +24,17 @@ export default function OnboardWelcome() {
 
 const styles = StyleSheet.create ({
     image: {
-        width: 213,
-        height: 236,
+        width: 251,
+        height: 251,
         position: 'absolute',
-        top: 85
+        top: 155,
+        left: 6
     },
     titleText: {
         fontSize: 24,
         fontWeight: 'bold',
         position: 'absolute',
-        width: 152,
+        width: 251,
         height: 36,
         top: 470,
         left: 30
