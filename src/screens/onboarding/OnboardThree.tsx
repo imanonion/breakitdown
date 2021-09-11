@@ -4,7 +4,6 @@ import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import CountdownButton from "../../components/CountdownButton";
 import DanceThreeSVG from "../../../assets/dance/danceThreeSVG";
 
-
 export default function OnboardWelcome() {
     const [isPlaying, setIsPlaying] = React.useState(true)
 
@@ -12,8 +11,7 @@ export default function OnboardWelcome() {
 
     return (
         <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            {/* <DanceThreeSVG/> */}
-            <Image source={require("../../../assets/dance/danceThree.svg")} />
+            <DanceThreeSVG />
             <Image style={styles.image} source={require("../../../assets/dance/danceThree.png")} />
             <Text style={styles.titleText}>Track your goals</Text>
             <Text style={styles.captionText}>Tell us your goals so can help you to achieve them.</Text>

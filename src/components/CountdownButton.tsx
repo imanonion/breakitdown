@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react'
+import React, {FunctionComponent, useEffect} from 'react'
 import { StyleSheet, Image, Animated, TouchableOpacity } from "react-native";
 import { Layout, Button, Icon } from "@ui-kitten/components";
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
@@ -37,29 +37,26 @@ const CountdownButton: FunctionComponent<Props> = ({destination, isPlaying}) => 
             ['#F7B801', 0.4],
             ['#A30000', 0.2],
             ]}
-            onComplete={() => [false, 1]}
+            onComplete={() => {[false, 1]}}
         >
             {({remainingTime}) => {
-                if (remainingTime === 0) {
-                   navigateToNextScreen()
-                }
-                else if (remainingTime > 0) {
-                    return (
-                        <Layout style={styles.nextbutton}>
-                            <Button 
-                                style={[styles.nextbutton, {}]} 
-                                onPress={() => navigation.dispatch(
-                                    CommonActions.navigate({
-                                        name: destination
-                                })
-                            )}>
-                                {'>'}
-                            </Button>
-                        </Layout>
 
-                    )
+                useEffect(() => {
+                    if (remainingTime === 0) {
+                        navigateToNextScreen()
+                     }
+                })
+                return (
+                    <Layout style={styles.nextbutton}>
+                        <Button 
+                            style={[styles.nextbutton, {}]} 
+                            onPress={() => navigateToNextScreen()}>
+                            {'>'}
+                        </Button>
+                    </Layout>
+                )
                 }
-            }}
+            }
         </CountdownCircleTimer>
     )
 }

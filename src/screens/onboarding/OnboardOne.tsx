@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Image, Animated } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import CountdownButton from "../../components/CountdownButton";
+import DanceOneSVG from "../../../assets/dance/danceOneSVG";
 
 
 export default function OnboardWelcome() {
@@ -11,6 +12,7 @@ export default function OnboardWelcome() {
 
     return (
         <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <DanceOneSVG />
             <Image style={styles.image} source={require("../../../assets/dance/danceOne.png")} />
             <Text style={styles.titleText}>A step a day</Text>
             <Text style={styles.captionText}>Dancing is meant to be fun! Let’s take it one step at a time.</Text>

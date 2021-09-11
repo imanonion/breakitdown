@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Image, Animated } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import CountdownButton from "../../components/CountdownButton";
-
+import DanceTwoSVG from "../../../assets/dance/danceTwoSVG";
 
 export default function OnboardWelcome() {
     const [isPlaying, setIsPlaying] = React.useState(true)
@@ -11,6 +11,7 @@ export default function OnboardWelcome() {
 
     return (
         <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <DanceTwoSVG />
             <Image style={styles.image} source={require("../../../assets/dance/danceTwo.png")} />
             <Text style={styles.titleText}>Routines made easy</Text>
             <Text style={styles.captionText}>Combine moves easily to make a choreography routine you can call your own.</Text>
