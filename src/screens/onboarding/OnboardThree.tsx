@@ -14,7 +14,7 @@ export default function OnboardWelcome() {
             <DanceThreeSVG />
             <Image style={styles.image} source={require("../../../assets/dance/danceThree.png")} />
             <Text style={styles.titleText}>Track your goals</Text>
-            <Text style={styles.captionText}>Tell us your goals so can help you to achieve them.</Text>
+            <Text style={styles.captionText}>Tell us your goals so we can help you achieve them.</Text>
             <Layout style={styles.button}>
                 <CountdownButton isPlaying={isPlaying} destination={"OnboardThree"} />
             </Layout>

@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { OnboardScreenProp } from "../RootStackParamsList";
 
 export default function OnboardWelcome({navigation}: any) {
 
