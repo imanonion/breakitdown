@@ -10,7 +10,7 @@ export default function OnboardWelcome({navigation}: any) {
     const theme = useTheme()
 
     const navigateToAppScreens = () => {
-        navigation.navigate("")
+        navigation.navigate("Dashboard")
     }
 
     return (
