@@ -42,8 +42,9 @@ export default function MainNavigator() {
   return (
     <NavigationContainer>
         <Navigator screenOptions={{headerShown: false}}>
-          {/* <Screen name="Onboard" component={OnboardStack} /> */}
-          {user ? <Screen name="App" component={AppStack} /> : <Screen name="Auth" component={AuthStack} />}
+          <Screen name="Onboard" component={OnboardStack} />
+          <Screen name="App" component={AppStack} />
+          <Screen name="Auth" component={AuthStack} />
         </Navigator>
     </NavigationContainer>
   );

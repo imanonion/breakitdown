@@ -6,14 +6,13 @@ import { Button, Layout, Text, Divider, Input } from "@ui-kitten/components";
 
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamsList } from "../RootStackParamsList";
+import { AuthStackParamList } from "./AuthStackParams";
 
 import firebase from "firebase";
 
 //type checking for Register screen
 type RegisterScreenProp = NativeStackScreenProps<
-  RootStackParamsList,
-  "SignUp"
+  AuthStackParamList, "SignUp"
 >;
 
 export default function SignUp({ navigation }: RegisterScreenProp) {
@@ -43,6 +42,7 @@ export default function SignUp({ navigation }: RegisterScreenProp) {
               }
             });
         }
+        navigation.navigate("Login")
       }
     } catch (err) {
       console.log(err.message)

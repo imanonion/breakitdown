@@ -6,22 +6,22 @@ import { useNavigation, CommonActions } from "@react-navigation/native";
 
 interface Props {
     isPlaying: boolean,
-    destination: string
+    redirect: () => void
 }
 
-const CountdownButton: FunctionComponent<Props> = ({destination, isPlaying}) => {
+const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
     
     const navigation = useNavigation()
     console.log(isPlaying)
-    console.log(destination)
+    console.log(redirect)
 
-    const navigateToNextScreen = () => {
-        navigation.dispatch(
-            CommonActions.navigate({
-                name: destination
-            })
-        )
-    }
+    // const navigateToNextScreen = () => {
+    //     navigation.dispatch(
+    //         CommonActions.navigate({
+    //             name: destination
+    //         })
+    //     )
+    // }
 
     return (
         
@@ -43,14 +43,14 @@ const CountdownButton: FunctionComponent<Props> = ({destination, isPlaying}) => 
 
                 useEffect(() => {
                     if (remainingTime === 0) {
-                        navigateToNextScreen()
+                        redirect()
                      }
                 })
                 return (
                     <Layout style={styles.nextbutton}>
                         <Button 
                             style={[styles.nextbutton, {}]} 
-                            onPress={() => navigateToNextScreen()}>
+                            onPress={() => redirect()}>
                             {'>'}
                         </Button>
                     </Layout>
