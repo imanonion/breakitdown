@@ -6,7 +6,7 @@ import { Button, Layout, Text, Divider, Input } from "@ui-kitten/components";
 
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamsList } from "../RootStackParamsList";
+import { RootStackParamList } from "../RootStackParams";
 
 import firebase from "firebase";
 

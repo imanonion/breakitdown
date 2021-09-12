@@ -3,9 +3,20 @@ import { StyleSheet, Image, Animated } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import CountdownButton from "../../components/CountdownButton";
 import DanceThreeSVG from "../../../assets/dance/danceThreeSVG";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../RootStackParams";
 
-export default function OnboardWelcome() {
+type onboardThreeScreenProp = NativeStackNavigationProp<RootStackParamList, "Onboard">
+
+export default function OnboardThree() {
     const [isPlaying, setIsPlaying] = React.useState(true)
+
+    const navigation = useNavigation<onboardThreeScreenProp>()
+
+    const navigateToLogin = () => {
+        navigation.navigate("Auth")
+    }
 
     const theme = useTheme()
 
@@ -16,7 +27,7 @@ export default function OnboardWelcome() {
             <Text style={styles.titleText}>Track your goals</Text>
             <Text style={styles.captionText}>Tell us your goals so we can help you achieve them.</Text>
             <Layout style={styles.button}>
-                <CountdownButton isPlaying={isPlaying} destination={"OnboardThree"} />
+                <CountdownButton isPlaying={isPlaying} redirect={navigateToLogin} />
             </Layout>
             
         </Layout>

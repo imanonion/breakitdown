@@ -2,7 +2,7 @@ import React, { useContext, FunctionComponent } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Layout, Text, Divider, Input } from "@ui-kitten/components";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamsList } from "../RootStackParamsList";
+import { RootStackParamsList } from "../RootStackParams";
 import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProvider";
 
 import { Firebase } from "../../services/Firebase";

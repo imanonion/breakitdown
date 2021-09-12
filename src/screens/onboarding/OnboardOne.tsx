@@ -3,10 +3,20 @@ import { StyleSheet, Image, Animated } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import CountdownButton from "../../components/CountdownButton";
 import DanceOneSVG from "../../../assets/dance/danceOneSVG";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamsList } from "../RootStackParams";
 
+type onboardOneScreenProp = NativeStackNavigationProp<RootStackParamsList, "OnboardOne">
 
-export default function OnboardWelcome() {
+export default function OnboardOne() {
     const [isPlaying, setIsPlaying] = React.useState(true)
+
+    const navigation = useNavigation<onboardOneScreenProp>()
+
+    const navigateToOnboardTwo = () => {
+        navigation.navigate("OnboardTwo")
+    }
 
     const theme = useTheme()
 
@@ -17,7 +27,7 @@ export default function OnboardWelcome() {
             <Text style={styles.titleText}>A step a day</Text>
             <Text style={styles.captionText}>Dancing is meant to be fun! Let’s take it one step at a time.</Text>
             <Layout style={styles.button}>
-                <CountdownButton isPlaying={isPlaying} destination={"OnboardTwo"} />
+                <CountdownButton isPlaying={isPlaying} redirect={navigateToOnboardTwo} />
             </Layout>
             
         </Layout>
