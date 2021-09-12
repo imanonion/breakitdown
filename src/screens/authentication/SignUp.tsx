@@ -17,6 +17,7 @@ type RegisterScreenProp = NativeStackScreenProps<
 >;
 
 export default function SignUp({ navigation }: RegisterScreenProp) {
+  const [username, setUsername] = useState<string>("")
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [registerError, setRegisterError] = useState<string>("");
@@ -33,7 +34,8 @@ export default function SignUp({ navigation }: RegisterScreenProp) {
             .firestore()
             .collection("users")
             .doc(user.uid)
-            .set({ 
+            .set({
+              username,
               email,
               "lessons": {
                 "completed": {},
@@ -50,25 +52,31 @@ export default function SignUp({ navigation }: RegisterScreenProp) {
 
   return (
     <Layout style={styles.container}>
-      <Text>Create your account</Text>
-      <Input status='primary' placeholder="Email" onChangeText={(text) => setEmail(text)} />
-      <Input
-        style={styles.input} status='primary' placeholder="Password" secureTextEntry onChangeText={(text) => setPassword(text)}
-      />
+      <Layout style={styles.title}>
+        <Text>Hey there,</Text>
+        <Text style={styles.boldTitle}>Create an account</Text>
+      </Layout>
+      <Layout style={styles.inputLayout}>
+        <Input style={styles.input} placeholder="Username" onChangeText={(text) => setUsername(text)} />
+        <Input style={styles.input} placeholder="Email" onChangeText={(text) => setEmail(text)} />
+        <Input
+          style={styles.input} placeholder="Password" secureTextEntry onChangeText={(text) => setPassword(text)}
+        />
+      </Layout>
 
       {registerError ? (
         <ErrorMessage error={registerError} visible={true} />
       ) : null}
 
-      <Button status='success' onPress={registerUser}>SIGN UP</Button>
+      <Button style={styles.button} onPress={registerUser}>Register</Button>
       <Layout style={styles.loginMessage}>
-        <Text style={styles.text}>Already have an account?</Text>
+        <Text>Already have an account?</Text>
         <TouchableOpacity
           onPress={() => navigation.navigate("Login")}
           style={{ marginHorizontal: 5 }}
         >
-          <Text style={styles.text}>
-            Login Here!
+          <Text style={styles.loginText}>
+            Login
           </Text>
         </TouchableOpacity>
       </Layout>
@@ -82,14 +90,42 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  loginMessage: {
-    flexDirection: "row",
-    marginVertical: 40,
+  title: {
+    alignItems: 'center',
+    position: 'absolute',
+    width: 192, 
+    height: 59,
+    top: 40
+  },
+  boldTitle: {
+    fontWeight: "bold",
+    fontSize: 20
+  },
+  inputLayout: {
+    position: 'absolute',
+    top: 129,
   },
   input: {
-    marginVertical: 5
+    marginVertical: 5,
+    width: 301,
+    height: 55,
+    borderRadius: 10,
+    // sh: 0px 4px 4px 0px #00000040;
   },
-  text: {
-    marginHorizontal: 8
-  }
+  button: {
+    position: 'absolute',
+    top: 553,
+    width: 315,
+    height: 60,
+    borderRadius: 35,
+  },
+  loginMessage: {
+    flexDirection: "row",
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 40
+  },
+  loginText: {
+    color: '#C58BF2'
+  },
 });

@@ -17,38 +17,62 @@ export default function Login({ navigation }: LoginScreenProp) {
   const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>("");
-  const {isAdmin, setIsAdmin} = useContext(AuthenticatedUserContext)
+  const {username, setUsername} = useContext(AuthenticatedUserContext)
+
+  // const {isAdmin, setIsAdmin} = useContext(AuthenticatedUserContext)
 
   const login = async () => {
     try {
       if (email && password) {
         await Firebase.auth().signInWithEmailAndPassword(email, password);
 
-        //check admin status
+        //get username
         const uid = Firebase.auth().currentUser?.uid
 
-        const checkIsAdmin = async () => {
-          try {
-            const fetchUserDoc = await Firebase.firestore().collection('users').doc(uid).get()
+        const getUsername = async () => {
+            try {
+                const fetchUserDoc = await Firebase.firestore().collection('users').doc(uid).get()
 
-            const userData = fetchUserDoc.data()
-            
-            if(!userData) {
-              throw new Error('could not fetch user doc')
-            }
-            else if (userData.isAdmin === 'true') {
-              setIsAdmin(userData.isAdmin)
-              console.log(`user is admin`)
-            } else {
-              setIsAdmin(false)
-              console.log(`no admin status`)
-            }
+                const userData = fetchUserDoc.data()
 
-          } catch (err) {
-            console.log(err)
-          }
+                if(!userData) {
+                    throw new Error('could not fetch user doc')
+                } else if (userData) {
+                    setUsername(userData.username)
+                    console.log(userData.username)
+                }
+
+            } catch (err) {
+                console.log(err)
+            }
         }
-        checkIsAdmin()
+        getUsername()
+        console.log(username)
+        //check admin status
+        // const uid = Firebase.auth().currentUser?.uid
+
+        // const checkIsAdmin = async () => {
+        //   try {
+        //     const fetchUserDoc = await Firebase.firestore().collection('users').doc(uid).get()
+
+        //     const userData = fetchUserDoc.data()
+            
+        //     if(!userData) {
+        //       throw new Error('could not fetch user doc')
+        //     }
+        //     else if (userData.isAdmin === 'true') {
+        //       setIsAdmin(userData.isAdmin)
+        //       console.log(`user is admin`)
+        //     } else {
+        //       setIsAdmin(false)
+        //       console.log(`no admin status`)
+        //     }
+
+        //   } catch (err) {
+        //     console.log(err)
+        //   }
+        // }
+        // checkIsAdmin()
 
       }
     } catch (err) {
@@ -60,33 +84,35 @@ export default function Login({ navigation }: LoginScreenProp) {
   
   return (
     <Layout style={styles.container} level='1'>
-      <Text>Login with your details:</Text>
-      <Input status='primary' placeholder="Email" onChangeText={(text) => setEmail(text)} />
-      <Input
-        style={styles.input} status='primary' placeholder="Password" secureTextEntry onChangeText={(text) => setPassword(text)}
-      />
-
-      {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
-
-      <Layout style={styles.viewOptions}>
-        <Button status='primary' onPress={login}>LOG IN</Button>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("SignUp")}
-          style={styles.inlineOptions}
-        >
-          <Text style={styles.text}>
-            Forgot password?
-          </Text>
-        </TouchableOpacity>
+      <Layout style={styles.title}>
+        <Text>Hey there,</Text>
+        <Text style={styles.boldTitle}>Welcome Back!</Text>
       </Layout>
-      <Layout style={styles.viewOptions}>
-        <Text style={styles.inlineOptions}>Don't have an account?</Text>
+      <Layout style={styles.inputLayout}>
+        <Input style={styles.input} placeholder="Email" onChangeText={(text) => setEmail(text)} />
+        <Input
+          style={styles.input} placeholder="Password" secureTextEntry onChangeText={(text) => setPassword(text)}
+        />
+
+        {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
+      </Layout>
+
+      <Layout style={styles.forgotPassword}>
+      <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+          <Text style={{textDecorationLine: "underline"}}> Forgot your password?</Text>
+      </TouchableOpacity>
+      </Layout>
+
+      <Button style={styles.button} onPress={login}>Login</Button>
+
+      <Layout style={styles.registerMessage}>
+        <Text>Don't have an account yet?</Text>
         <TouchableOpacity
           onPress={() => navigation.navigate("SignUp")}
-          style={styles.inlineOptions}
+          style={{ marginHorizontal: 5 }}
         >
-          <Text style={styles.text}>
-            Register here
+          <Text style={styles.registerText}>
+            Register
           </Text>
         </TouchableOpacity>
       </Layout>
@@ -99,20 +125,46 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    margin: 9,
   },
-  viewOptions: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 20,
+  title: {
+    position: 'absolute',
+    alignItems: 'center',
+    width: 192, 
+    height: 59,
+    top: 40
   },
-  inlineOptions: {
-    marginHorizontal: 5,
+  boldTitle: {
+    fontWeight: "bold",
+    fontSize: 20
+  },
+  inputLayout: {
+    position: 'absolute',
+    top: 129
+  },
+  forgotPassword: {
+    position: 'absolute',
+    top: 255
   },
   input: {
-    marginVertical: 5
+    marginVertical: 0,
+    width: 301,
+    height: 55,
+    borderRadius: 10
   },
-  text: {
-    marginHorizontal: 8
-  }
+  button: {
+    position: 'absolute',
+    top: 553,
+    width: 315,
+    height: 60,
+    borderRadius: 35,
+  },
+  registerMessage: {
+    flexDirection: "row",
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 40
+  },
+  registerText: {
+    color: '#C58BF2'
+  },
 });

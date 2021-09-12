@@ -3,8 +3,6 @@ import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignUp from "../screens/authentication/SignUp";
 import Login from "../screens/authentication/Login";
-import AuthWelcome from "../screens/authentication/AuthWelcome"
-
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
