@@ -5,9 +5,9 @@ import CountdownButton from "../../components/CountdownButton";
 import DanceOneSVG from "../../../assets/dance/danceOneSVG";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamsList } from "../RootStackParams";
+import { OnboardStackParamList } from "./OnboardStackParams";
 
-type onboardOneScreenProp = NativeStackNavigationProp<RootStackParamsList, "OnboardOne">
+type onboardOneScreenProp = NativeStackNavigationProp<OnboardStackParamList, "OnboardOne">
 
 export default function OnboardOne() {
     const [isPlaying, setIsPlaying] = React.useState(true)

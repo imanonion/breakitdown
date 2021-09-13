@@ -1,6 +1,10 @@
 //type checking for Navigator and Screens
 export type AppStackParamList = {
     AuthWelcome: undefined;
-    Dashboard: undefined;
+    Tabs: undefined;
+    Browse: undefined;
+    CreateVideo: undefined;
+    Home: undefined;
+    Profile: undefined;
 };
   

@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ErrorMessage from "../../components/ErrorMessage";
 import { Button, Layout, Text, Divider, Input } from "@ui-kitten/components";
+import { ProfileIcon, EmailIcon, PasswordIcon } from "../../components/Icons";
 
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";

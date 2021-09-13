@@ -2,12 +2,12 @@ import React, { useContext, FunctionComponent } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Layout, Text, Divider, Input } from "@ui-kitten/components";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamsList } from "../RootStackParams";
+import { AppStackParamList } from "./AppStackParams";
 import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProvider";
 
 import { Firebase } from "../../services/Firebase";
 
-const Intro: FunctionComponent = () => {
+const Home: FunctionComponent = () => {
   const { user } = useContext(AuthenticatedUserContext);
   const logout = async () => {
     try {
@@ -26,7 +26,7 @@ const Intro: FunctionComponent = () => {
   );
 };
 
-export default Intro;
+export default Home;
 
 const styles = StyleSheet.create({
   container: {

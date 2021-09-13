@@ -50,7 +50,7 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
                     <Layout style={styles.nextbutton}>
                         <Button 
                             style={[styles.nextbutton, {}]} 
-                            onPress={() => redirect()}>
+                            onPress={redirect}>
                             {'>'}
                         </Button>
                     </Layout>
