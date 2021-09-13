@@ -2,6 +2,6 @@
 export type RootStackParamList = {
     Onboard: undefined;
     Auth: undefined;
-    App: undefined
+    App: undefined;
+    BottomTabNavigator: undefined;
 };
-  

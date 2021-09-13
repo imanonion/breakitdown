@@ -1,16 +1,23 @@
 import React, { useContext, useState } from 'react'
 import { StyleSheet, Image, Animated } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import DanceWelcomeSVG from "../../../assets/dance/danceWelcomeSVG";
 import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProvider";
 import { Firebase } from '../../services/Firebase';
+import { AppStackParamList } from "./AppStackParams";
 
-export default function OnboardWelcome({navigation}: any) {
+type authWelcomeScreenProp = NativeStackNavigationProp<AppStackParamList, "Tabs">
+
+export default function OnboardWelcome() {
     const {username, setUsername} = useContext(AuthenticatedUserContext)
     const theme = useTheme()
 
+    const navigation = useNavigation<authWelcomeScreenProp>()
+
     const navigateToAppScreens = () => {
-        navigation.navigate("Dashboard")
+        navigation.navigate("Tabs")
     }
 
     return (
@@ -20,8 +27,6 @@ export default function OnboardWelcome({navigation}: any) {
             <Text style={styles.titleText}>Welcome, {username}</Text>
             <Text style={styles.captionText}>You are all set now, let's begin!</Text>
             <Button style={styles.button} onPress={navigateToAppScreens}>Go to Home</Button>
-
-            
         </Layout>
     );
 }
