@@ -6,12 +6,12 @@ import { Button, Layout, Text, Divider, Input } from "@ui-kitten/components";
 import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider';
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../RootStackParams";
+import { AuthStackParamList } from "./AuthStackParams";
 
 import {Firebase} from '../../services/Firebase'
 
 //type checking for Login screen
-type LoginScreenProp = NativeStackScreenProps<RootStackParamsList, "Login">;
+type LoginScreenProp = NativeStackScreenProps<AuthStackParamList, "Login">;
 
 export default function Login({ navigation }: LoginScreenProp) {
   const [email, setEmail] = useState<string | null>(null);
