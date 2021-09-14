@@ -9,6 +9,7 @@ import Home from "../screens/userApp/Home";
 import Browse from "../screens/userApp/Browse";
 import CreateVideo from "../screens/userApp/CreateVideo";
 import Profile from "../screens/userApp/Profile";
+import Video from "../screens/userApp/VideoScreen";
 
 const { Navigator, Screen } = createBottomTabNavigator<MainBottomTabParamList>()
 
@@ -16,8 +17,6 @@ const BottomTabBar: FunctionComponent<BottomTabBarProps>  = ({navigation, state}
     // const navigation = useNavigation()
     // const state = useNavigationState(state => state)
     // const index = state.index
-
-    console.log(state)
 
     return (
         <Layout>
@@ -39,6 +38,7 @@ export const BottomTabNavigator = () => {
             <Screen name="Browse" component={Browse} />
             <Screen name="CreateVideo" component={CreateVideo} />
             <Screen name="Profile" component={Profile} />
+            <Screen name="Video" component={Video} />
         </Navigator>
     )
     

@@ -3,4 +3,5 @@ export type MainBottomTabParamList = {
     CreateVideo: undefined;
     Home: undefined;
     Profile: undefined;
+    Video: undefined;
 }
