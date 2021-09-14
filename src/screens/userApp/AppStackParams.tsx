@@ -6,5 +6,6 @@ export type AppStackParamList = {
     CreateVideo: undefined;
     Home: undefined;
     Profile: undefined;
+    Video: undefined;
 };
   

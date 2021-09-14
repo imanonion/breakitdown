@@ -8,7 +8,7 @@ import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProv
 import { Firebase } from '../../services/Firebase';
 import { AppStackParamList } from "./AppStackParams";
 
-type authWelcomeScreenProp = NativeStackNavigationProp<AppStackParamList, "Tabs">
+type authWelcomeScreenProp = NativeStackNavigationProp<AppStackParamList, "AuthWelcome">
 
 export default function OnboardWelcome() {
     const {username, setUsername} = useContext(AuthenticatedUserContext)
