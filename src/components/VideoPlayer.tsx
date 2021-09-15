@@ -4,7 +4,7 @@ import { StyleSheet, Dimensions, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Video, AVPlaybackStatus } from "expo-av";
 
-const { width, height } = Dimensions.get("window")
+const { width, height } = Dimensions.get("screen")
 
 type urlProp = {
     videoUri: string
@@ -20,7 +20,7 @@ export default function VideoPlayer({videoUri}: {videoUri: string}) {
 
     return (
         <Layout style={styles.container}>
-            <Button onPress={goBack}>Back to Home</Button>
+            {/* <Button onPress={goBack}>Back to Home</Button> */}
             <Video
                 source={{
                 uri: videoUri,

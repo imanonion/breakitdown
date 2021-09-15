@@ -13,7 +13,7 @@ const Video: FunctionComponent = () => {
   const [videoURL, setVideoURL] = useState("")
 
   let storage = Firebase.storage()
-  let pathReference = storage.ref("/breaking/BreakingIndianStep.mov")
+  let pathReference = storage.ref("/breaking/Tutorial Videos .mp4")
   console.log(`pathReference: ${pathReference}`)
 
   pathReference.getDownloadURL()
