@@ -38,7 +38,7 @@ export const BottomTabNavigator = () => {
             <Screen name="Browse" component={Browse} />
             <Screen name="CreateVideo" component={CreateVideo} />
             <Screen name="Profile" component={Profile} />
-            <Screen name="Video" component={Video} />
+            {/* <Screen name="Video" component={Video} /> */}
         </Navigator>
     )
     
