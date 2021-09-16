@@ -25,3 +25,4 @@ Solved but struggle:
 
 Yet to solve:
 - ">" icon inside countdown circle button cannot change size
+- how to run seed.ts file?
