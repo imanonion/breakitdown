@@ -32,6 +32,7 @@ const Home: FunctionComponent = () => {
         <Text style={{fontWeight: "bold", fontSize: 20}}>{username}</Text>
       </Layout>
       {/* <Text>Your UID is: {user.uid}</Text> */}
+      
 
       <Button onPress={goToVideo}>Go to video</Button>
     </Layout>
