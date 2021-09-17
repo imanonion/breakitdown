@@ -28,7 +28,7 @@ const Home: FunctionComponent = () => {
         <Text style={styles.logoText}>down</Text>
       </Layout>
       <Layout style={styles.welcome}>
-        <Text style={{fontSize: 12}}>Welcome Back,</Text> 
+        <Text style={{fontSize: 18}}>Welcome Back,</Text> 
         <Text style={{fontWeight: "bold", fontSize: 20}}>{username}</Text>
       </Layout>
       {/* <Text>Your UID is: {user.uid}</Text> */}
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   logo: {
     flexDirection: "row",
     position: 'absolute',
-    top: 5,
+    top: 10,
     left: 10
   },
   logoText: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   welcome: {
     position: 'absolute',
-    top: 10,
+    top: 50,
     left: 10
   }
 });

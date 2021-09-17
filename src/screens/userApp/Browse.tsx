@@ -1,4 +1,4 @@
-import React, { useContext, FunctionComponent } from "react";
+import React, { useContext, FunctionComponent, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Layout, Text, Card, List, ListItem } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
@@ -15,21 +15,58 @@ type Props = {
 
 type browseScreenProp = NativeStackNavigationProp<AppStackParamList, "Browse">
 
+type stepProps = {
+  title: string,
+  explanation: string
+}
+
+type lessonProps = {
+  "description": string,
+  "duration": string,
+  "genre": string,
+  "name": string,
+  "steps": stepProps[],
+  "storageThumbnailRef": string,
+  "storageVideoRef": string,
+  "type": string
+}
+
 const genreList = [
-  {"genre": "Hip Hop", "description": "1 out of 2 completed"},
-  {"genre": "Breaking", "description": "1 out of 2 completed"}
+  {"genre": "Hip Hop", "description": ""},
+  {"genre": "Breaking", "description": ""}
 ]
 
 const Browse = () => {
   const { user } = useContext(AuthenticatedUserContext);
+  const [hipHopLessons, setHipHopLessons] = useState(0)
+  const [breakingLessons, setBreakingLessons] = useState(0)
 
-  // try {
-  //   let hipHopInfo = await Firebase.firestore().collection("lessons").where("genre", "==", "Hip Hop")
-  //   console.log(hipHopInfo)
-  // } catch (err) {
-  //   console.log(`error getting hip hop collection: ${err}`)
-  // }
+  //create array to store all lessons
+  const lessonsArray: (lessonProps| firebase.default.firestore.DocumentData)[] = []
 
+  //get lessons collection and push each lesson into lessonsArray
+  Firebase.firestore().collection('lessons').get()
+    .then((snapshot) => {
+      snapshot.docs.forEach(doc => {
+        lessonsArray.push(doc.data())
+      })
+      
+      //count no of each genre
+      lessonsArray.forEach((lesson) => {
+        if(lesson.genre === "Hip Hop") {
+          return setHipHopLessons(hipHopLessons + 1)
+        } else if(lesson.genre === "Breaking") {
+          return setBreakingLessons(breakingLessons + 1)
+        }
+      })
+
+      genreList[0].description = `1 out of ${hipHopLessons} completed`
+      genreList[1].description = `1 out of ${breakingLessons} completed`
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  
   const navigation = useNavigation<browseScreenProp>()
   
   const goToGenre = () => {
