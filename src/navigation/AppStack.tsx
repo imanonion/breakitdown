@@ -6,6 +6,7 @@ import Browse from "../screens/userApp/Browse";
 import CreateVideo from "../screens/userApp/CreateVideo";
 import Profile from "../screens/userApp/Profile";
 import Video from "../screens/userApp/VideoScreen";
+import Genre from "../screens/userApp/Genre";
 import { BottomTabNavigator } from "./BottomTabNavigator";
 
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -20,6 +21,7 @@ export default function AppStack() {
       <Screen name="Create" component={CreateVideo} />
       <Screen name="Profile" component={Profile} />
       <Screen name="Video" component={Video} />
+      <Screen name="Genre" component={Genre} />
     </Navigator>
   );
 }
