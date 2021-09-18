@@ -15,14 +15,6 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
     console.log(isPlaying)
     console.log(redirect)
 
-    // const navigateToNextScreen = () => {
-    //     navigation.dispatch(
-    //         CommonActions.navigate({
-    //             name: destination
-    //         })
-    //     )
-    // }
-
     return (
         
         <CountdownCircleTimer

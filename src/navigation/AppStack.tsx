@@ -8,8 +8,9 @@ import Profile from "../screens/userApp/Profile";
 import Video from "../screens/userApp/VideoScreen";
 import Genre from "../screens/userApp/Genre";
 import { BottomTabNavigator } from "./BottomTabNavigator";
+import { AppStackParamList } from "../screens/userApp/AppStackParams";
 
-const { Navigator, Screen } = createNativeStackNavigator();
+const { Navigator, Screen } = createNativeStackNavigator<AppStackParamList>();
 
 export default function AppStack() {
   return (
@@ -21,7 +22,7 @@ export default function AppStack() {
       <Screen name="Create" component={CreateVideo} />
       <Screen name="Profile" component={Profile} />
       <Screen name="Video" component={Video} />
-      <Screen name="Genre" component={Genre} />
+      <Screen name="Genre" component={Genre} initialParams={{}}/>
     </Navigator>
   );
 }
