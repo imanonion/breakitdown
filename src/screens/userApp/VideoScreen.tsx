@@ -23,20 +23,6 @@ const Video: FunctionComponent = () => {
     .catch((err) => {
       console.log(`error getting videoURL: ${err}`)
     })
-  // useEffect(() => {
-  //   const getVideoURL = async () => {
-  //     try {
-  //       let videoURL = await gsReference.getDownloadURL()
-  //       console.log(`in screen: ${videoURL}`)
-  //       setVideoURL(videoURL)
-  //     } catch (err) {
-  //       console.log(err)
-  //     }
-  //   }
-
-  //   getVideoURL()
-
-  // }, [])
 
   const { user } = useContext(AuthenticatedUserContext);
 

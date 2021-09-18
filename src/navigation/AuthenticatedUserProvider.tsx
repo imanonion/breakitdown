@@ -1,5 +1,6 @@
 import React, { useState, createContext, FunctionComponent, ContextType } from "react";
 import firebase from "firebase";
+import { ImageSourcePropType } from "react-native";
 export const AuthenticatedUserContext = createContext<any>(null!);
 
 export type stepProps = {

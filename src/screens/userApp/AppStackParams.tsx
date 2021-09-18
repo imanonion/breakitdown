@@ -1,3 +1,5 @@
+import { lessonProps } from "../../navigation/AuthenticatedUserProvider";
+
 //type checking for Navigator and Screens
 export type AppStackParamList = {
     AuthWelcome: undefined;
@@ -8,5 +10,6 @@ export type AppStackParamList = {
     Profile: undefined;
     Video: undefined;
     Genre: {genre: string, description: string};
+    Lesson: lessonProps;
 };
   

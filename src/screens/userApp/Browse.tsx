@@ -5,11 +5,10 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps, NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppStackParamList } from "./AppStackParams";
 
-import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProvider";
+import { AuthenticatedUserContext, lessonProps, stepProps } from "../../navigation/AuthenticatedUserProvider";
 
 import { Firebase } from "../../services/Firebase";
 import firebase from "firebase";
-import { lessonProps, stepProps } from "../../navigation/AuthenticatedUserProvider";
 
 type Props = {
   item: {genre: string, description: string},
@@ -19,9 +18,6 @@ type browseScreenProp = NativeStackNavigationProp<AppStackParamList, "Browse">
 
 const Browse = () => {
   const { user, hipHopLessons, setHipHopLessons, breakingLessons, setBreakingLessons } = useContext(AuthenticatedUserContext);
-  
-  // const [hipHopLessons, setHipHopLessons] = useState([] as lessonProps[])
-  // const [breakingLessons, setBreakingLessons] = useState([] as lessonProps[])
 
   const navigation = useNavigation<browseScreenProp>()
 
@@ -33,17 +29,17 @@ const Browse = () => {
   useEffect(() => {
     //get lessons collection and push each lesson into lessonsArray
     Firebase.firestore().collection('lessons').get()
-    .then((snapshot) => {
-      const hipHopClass: lessonProps[] = []
-      const breakingClass: lessonProps[] = []
-      snapshot.docs.forEach((doc) => {
-        const data = doc.data() as lessonProps
-          if(data.genre === "Hip Hop") {
-            hipHopClass.push(data)
-          } else if(data.genre === "Breaking") {
-            breakingClass.push(data)
-          }
-      })
+      .then((snapshot) => {
+        const hipHopClass: lessonProps[] = []
+        const breakingClass: lessonProps[] = []
+        snapshot.docs.forEach((doc) => {
+          const data = doc.data() as lessonProps
+            if(data.genre === "Hip Hop") {
+              hipHopClass.push(data)
+            } else if(data.genre === "Breaking") {
+              breakingClass.push(data)
+            }
+        })
       setHipHopLessons(hipHopClass)
       setBreakingLessons(breakingClass)
     })

@@ -7,6 +7,7 @@ import CreateVideo from "../screens/userApp/CreateVideo";
 import Profile from "../screens/userApp/Profile";
 import Video from "../screens/userApp/VideoScreen";
 import Genre from "../screens/userApp/Genre";
+import Lesson from "../screens/userApp/Lesson";
 import { BottomTabNavigator } from "./BottomTabNavigator";
 import { AppStackParamList } from "../screens/userApp/AppStackParams";
 
@@ -22,7 +23,8 @@ export default function AppStack() {
       <Screen name="Create" component={CreateVideo} />
       <Screen name="Profile" component={Profile} />
       <Screen name="Video" component={Video} />
-      <Screen name="Genre" component={Genre} initialParams={{}}/>
+      <Screen name="Genre" component={Genre} initialParams={{}} options={{headerShown: true}}/>
+      <Screen name="Lesson" component={Lesson} options={{headerShown: true}}/>
     </Navigator>
   );
 }

@@ -19,8 +19,8 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
         
         <CountdownCircleTimer
             isPlaying={isPlaying}
-            duration={5}
-            initialRemainingTime={5}
+            duration={3}
+            initialRemainingTime={3}
             size={60}
             strokeLinecap={'round'}
             strokeWidth={8}
