@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useEffect} from 'react'
-import { StyleSheet, Image, Animated, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Layout, Button, Icon } from "@ui-kitten/components";
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { useNavigation, CommonActions } from "@react-navigation/native";

@@ -24,7 +24,7 @@ const Profile: FunctionComponent = () => {
   const logout = async () => {
     try {
       await Firebase.auth().signOut();
-      // redirectToLogin()
+      redirectToLogin()
     } catch (err) {
       console.log(err);
     }

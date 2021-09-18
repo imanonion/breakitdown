@@ -7,5 +7,6 @@ export type AppStackParamList = {
     Home: undefined;
     Profile: undefined;
     Video: undefined;
+    Genre: undefined;
 };
   
