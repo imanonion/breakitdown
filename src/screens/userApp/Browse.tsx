@@ -1,4 +1,4 @@
-import React, { useContext, FunctionComponent, useState } from "react";
+import React, { useContext, FunctionComponent, useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Layout, Text, Card, List, ListItem } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
@@ -8,6 +8,7 @@ import { AppStackParamList } from "./AppStackParams";
 import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProvider";
 
 import { Firebase } from "../../services/Firebase";
+import firebase from "firebase";
 
 type Props = {
   item: {genre: string, description: string},
@@ -20,7 +21,7 @@ type stepProps = {
   explanation: string
 }
 
-type lessonProps = {
+type lessonProps  = {
   "description": string,
   "duration": string,
   "genre": string,
@@ -29,49 +30,49 @@ type lessonProps = {
   "storageThumbnailRef": string,
   "storageVideoRef": string,
   "type": string
-}
-
-const genreList = [
-  {"genre": "Hip Hop", "description": ""},
-  {"genre": "Breaking", "description": ""}
-]
+} & firebase.firestore.DocumentData
 
 const Browse = () => {
   const { user } = useContext(AuthenticatedUserContext);
-  const [hipHopLessons, setHipHopLessons] = useState(0)
-  const [breakingLessons, setBreakingLessons] = useState(0)
+  const [hipHopLessons, setHipHopLessons] = useState([] as lessonProps[])
+  const [breakingLessons, setBreakingLessons] = useState([] as lessonProps[])
 
-  //create array to store all lessons
-  const lessonsArray: (lessonProps| firebase.default.firestore.DocumentData)[] = []
-
-  //get lessons collection and push each lesson into lessonsArray
-  Firebase.firestore().collection('lessons').get()
-    .then((snapshot) => {
-      snapshot.docs.forEach(doc => {
-        lessonsArray.push(doc.data())
-      })
-      
-      //count no of each genre
-      lessonsArray.forEach((lesson) => {
-        if(lesson.genre === "Hip Hop") {
-          return setHipHopLessons(hipHopLessons + 1)
-        } else if(lesson.genre === "Breaking") {
-          return setBreakingLessons(breakingLessons + 1)
-        }
-      })
-
-      genreList[0].description = `1 out of ${hipHopLessons} completed`
-      genreList[1].description = `1 out of ${breakingLessons} completed`
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  
   const navigation = useNavigation<browseScreenProp>()
   
   const goToGenre = () => {
     navigation.navigate("Genre")
   }
+
+  const genreList = [
+    {"genre": "Hip Hop", "description": ""},
+    {"genre": "Breaking", "description": ""}
+  ]
+
+  useEffect(() => {
+    //get lessons collection and push each lesson into lessonsArray
+    Firebase.firestore().collection('lessons').get()
+    .then((snapshot) => {
+      const hipHopClass: lessonProps[] = []
+      const breakingClass: lessonProps[] = []
+      snapshot.docs.forEach((doc) => {
+        const data = doc.data() as lessonProps
+          if(data.genre === "Hip Hop") {
+            hipHopClass.push(data)
+          } else if(data.genre === "Breaking") {
+            breakingClass.push(data)
+          }
+      })
+      setHipHopLessons(hipHopClass)
+      setBreakingLessons(breakingClass)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
+  
+
+  genreList[0].description = `1 out of ${hipHopLessons.length} completed`
+  genreList[1].description = `1 out of ${breakingLessons.length} completed`
 
   const renderItem = ({item}: Props) => (
     <Card status="primary" style={styles.cardStyle}>

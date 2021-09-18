@@ -10,6 +10,9 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthenticatedUserProvider } from "./src/navigation/AuthenticatedUserProvider";
 import MainNavigator from "./src/navigation/MainNavigator";
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Setting a timer']);
 
 export default () => (
   <>
