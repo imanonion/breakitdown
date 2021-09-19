@@ -27,3 +27,6 @@ Yet to solve:
 - ">" icon inside countdown circle button cannot change size
 - how to run seed.ts file?
 - video player
+- onboard redirect bug
+- scrollview: https://github.com/antoniocosentino/flippingCards/blob/master/components/AddToWallet.tsx
+- animatable: https://github.com/antoniocosentino/flippingCards/blob/master/views/ChallengeModePlaying.tsx
