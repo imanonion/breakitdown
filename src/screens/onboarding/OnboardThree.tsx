@@ -17,7 +17,6 @@ export default function OnboardThree() {
     const navigation = useNavigation<onboardThreeScreenProp>()
 
     const navigateToAppOrAuth = () => {
-        console.log(`onboard three: ${user}`)
         user ? navigation.navigate("App") : navigation.navigate("Auth")
     }
 

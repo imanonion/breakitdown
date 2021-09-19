@@ -26,6 +26,4 @@ Solved but struggled:
 Yet to solve:
 - ">" icon inside countdown circle button cannot change size
 - how to run seed.ts file?
-- onboard screens stop loading when moved to next screen
-- log out 
 - video player
