@@ -33,7 +33,7 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
                         redirect()
                      }
     
-                })
+                }, [remainingTime])
 
                 return (
                     <Layout style={styles.nextbutton}>
@@ -46,7 +46,7 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
                         </Button>
                     </Layout>
                 )
-                }
+            }
             }
         </CountdownCircleTimer>
     )
