@@ -11,6 +11,6 @@ export type AppStackParamList = {
     Video: undefined;
     Genre: {genre: string, description: string};
     Lesson: lessonProps;
-    Congrats: undefined;
+    Congrats: lessonProps;
 };
   

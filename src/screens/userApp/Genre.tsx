@@ -26,21 +26,21 @@ const Genre = ({route}: Props) => {
  
   const navigation = useNavigation<genreScreenProp>()
 
-  const getThumbnailURL = (urlRef: string) => {
-    let storage = Firebase.storage()
-    let pathReference = storage.ref(urlRef)
-    console.log(pathReference)
+  // const getThumbnailURL = (urlRef: string) => {
+  //   let storage = Firebase.storage()
+  //   let pathReference = storage.ref(urlRef)
+  //   console.log(pathReference)
 
-    pathReference.getDownloadURL()
-      .then((url) => {
-        setThumbnailURL(url)
-      })
-      .catch((err) => {
-        console.log(`error getting thumbnail: ${err}`)
-      })
+  //   pathReference.getDownloadURL()
+  //     .then((url) => {
+  //       setThumbnailURL(url)
+  //     })
+  //     .catch((err) => {
+  //       console.log(`error getting thumbnail: ${err}`)
+  //     })
 
-    return thumbnailURL
-  }
+  //   return thumbnailURL
+  // }
 
   useEffect(() => {
     if (genre === "Hip Hop") {
