@@ -15,20 +15,12 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
     console.log(isPlaying)
     console.log(redirect)
 
-    // const navigateToNextScreen = () => {
-    //     navigation.dispatch(
-    //         CommonActions.navigate({
-    //             name: destination
-    //         })
-    //     )
-    // }
-
     return (
         
         <CountdownCircleTimer
             isPlaying={isPlaying}
-            duration={5}
-            initialRemainingTime={5}
+            duration={3}
+            initialRemainingTime={3}
             size={60}
             strokeLinecap={'round'}
             strokeWidth={8}

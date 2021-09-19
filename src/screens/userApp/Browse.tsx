@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps, NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppStackParamList } from "./AppStackParams";
 
-import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProvider";
+import { AuthenticatedUserContext, lessonProps, stepProps } from "../../navigation/AuthenticatedUserProvider";
 
 import { Firebase } from "../../services/Firebase";
 import firebase from "firebase";
@@ -16,32 +16,10 @@ type Props = {
 
 type browseScreenProp = NativeStackNavigationProp<AppStackParamList, "Browse">
 
-type stepProps = {
-  title: string,
-  explanation: string
-}
-
-type lessonProps  = {
-  "description": string,
-  "duration": string,
-  "genre": string,
-  "name": string,
-  "steps": stepProps[],
-  "storageThumbnailRef": string,
-  "storageVideoRef": string,
-  "type": string
-} & firebase.firestore.DocumentData
-
 const Browse = () => {
-  const { user } = useContext(AuthenticatedUserContext);
-  const [hipHopLessons, setHipHopLessons] = useState([] as lessonProps[])
-  const [breakingLessons, setBreakingLessons] = useState([] as lessonProps[])
+  const { user, hipHopLessons, setHipHopLessons, breakingLessons, setBreakingLessons } = useContext(AuthenticatedUserContext);
 
   const navigation = useNavigation<browseScreenProp>()
-  
-  const goToGenre = () => {
-    navigation.navigate("Genre")
-  }
 
   const genreList = [
     {"genre": "Hip Hop", "description": ""},
@@ -51,17 +29,17 @@ const Browse = () => {
   useEffect(() => {
     //get lessons collection and push each lesson into lessonsArray
     Firebase.firestore().collection('lessons').get()
-    .then((snapshot) => {
-      const hipHopClass: lessonProps[] = []
-      const breakingClass: lessonProps[] = []
-      snapshot.docs.forEach((doc) => {
-        const data = doc.data() as lessonProps
-          if(data.genre === "Hip Hop") {
-            hipHopClass.push(data)
-          } else if(data.genre === "Breaking") {
-            breakingClass.push(data)
-          }
-      })
+      .then((snapshot) => {
+        const hipHopClass: lessonProps[] = []
+        const breakingClass: lessonProps[] = []
+        snapshot.docs.forEach((doc) => {
+          const data = doc.data() as lessonProps
+            if(data.genre === "Hip Hop") {
+              hipHopClass.push(data)
+            } else if(data.genre === "Breaking") {
+              breakingClass.push(data)
+            }
+        })
       setHipHopLessons(hipHopClass)
       setBreakingLessons(breakingClass)
     })
@@ -78,7 +56,7 @@ const Browse = () => {
     <Card status="primary" style={styles.cardStyle}>
       <Text style={styles.genreStyle}>{`${item.genre}`}</Text>
       <Text>{`${item.description}`}</Text>
-      <Button style={styles.button} onPress={goToGenre}>{'>'}</Button>
+      <Button style={styles.button} onPress={() => navigation.navigate("Genre", item)}>{'>'}</Button>
     </Card>
   )
 
