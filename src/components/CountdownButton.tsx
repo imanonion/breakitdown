@@ -14,8 +14,8 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
     return (
         <CountdownCircleTimer
             isPlaying={isPlaying}
-            duration={5}
-            initialRemainingTime={5}
+            duration={3}
+            initialRemainingTime={3}
             size={60}
             strokeLinecap={'round'}
             strokeWidth={8}
@@ -27,17 +27,22 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
             onComplete={() => {[false, 1]}}
         >
             {({remainingTime}) => {
-
                 useEffect(() => {
+                    console.log("hey")
                     if (remainingTime === 0) {
                         redirect()
                      }
+    
                 })
+
                 return (
                     <Layout style={styles.nextbutton}>
                         <Button 
                             style={[styles.nextbutton, {}]} 
-                            onPress={() => remainingTime = 0}>
+                            onPress={() => {
+                                remainingTime = 0
+                                redirect()
+                            }}>
                             {'>'}
                         </Button>
                     </Layout>
