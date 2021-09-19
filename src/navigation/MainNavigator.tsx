@@ -11,7 +11,7 @@ import AppStack from './AppStack'
 const { Navigator, Screen } = createNativeStackNavigator()
 
 export default function MainNavigator() {
-  const {user, setUser} = useContext(AuthenticatedUserContext);
+  const {user, setUser, username, setUsername } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,10 +20,35 @@ export default function MainNavigator() {
     const unsubscribeAuth = Firebase.auth().onAuthStateChanged(async authenticatedUser => {
       try {
         await (authenticatedUser ? setUser(authenticatedUser) : setUser(null));
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
+        
+        if (authenticatedUser) {
+          //get username
+          const uid = Firebase.auth().currentUser?.uid
+
+          const getUsername = async () => {
+            try {
+                const fetchUserDoc = await Firebase.firestore().collection('users').doc(uid).get()
+
+                const userData = fetchUserDoc.data()
+
+                if(!userData) {
+                    throw new Error('could not fetch user doc')
+                } else if (userData) {
+                    setUsername(userData.username)
+                    console.log(userData.username)
+                }
+
+            } catch (err) {
+                console.log(err)
+            }
+          }
+          getUsername()
+          console.log(username)
+          }
+          setIsLoading(false);
+        } catch (error) {
+          console.log(error);
+        }
     });
 
     // unsubscribe auth listener on unmount
