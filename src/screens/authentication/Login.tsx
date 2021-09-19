@@ -26,28 +26,6 @@ export default function Login({ navigation }: LoginScreenProp) {
       if (email && password) {
         await Firebase.auth().signInWithEmailAndPassword(email, password);
 
-        //get username
-        const uid = Firebase.auth().currentUser?.uid
-
-        const getUsername = async () => {
-            try {
-                const fetchUserDoc = await Firebase.firestore().collection('users').doc(uid).get()
-
-                const userData = fetchUserDoc.data()
-
-                if(!userData) {
-                    throw new Error('could not fetch user doc')
-                } else if (userData) {
-                    setUsername(userData.username)
-                    console.log(userData.username)
-                }
-
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        getUsername()
-        console.log(username)
         //check admin status
         // const uid = Firebase.auth().currentUser?.uid
 
@@ -76,7 +54,7 @@ export default function Login({ navigation }: LoginScreenProp) {
 
       }
     } catch (err) {
-        console.log(err);
+      console.log(err);
       setLoginError(err.message);
     }
   };
