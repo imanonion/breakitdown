@@ -8,7 +8,7 @@ export type AppStackParamList = {
     Create: undefined;
     Home: undefined;
     Profile: undefined;
-    Video: undefined;
+    Video: lessonProps;
     Genre: {genre: string, description: string};
     Lesson: lessonProps;
     Congrats: lessonProps;

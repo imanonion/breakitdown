@@ -17,6 +17,7 @@ Struggles:
 
 - expo does not have perfect integration with Firebase (e.g. authentication)
 - documentation on linking expo and firebase were not clear (e.g. need to create web app to get the firebaseConfig info)
+- disallow firebase from automatically logging in user after they sign up
 
 Solved but struggled:
 - SVG positioning (SVG taken from Figma which was easy, but did not know how to position the SVG...now I know I have to use viewbox)
@@ -27,3 +28,6 @@ Yet to solve:
 - ">" icon inside countdown circle button cannot change size
 - how to run seed.ts file?
 - video player
+- onboard redirect bug
+- scrollview: https://github.com/antoniocosentino/flippingCards/blob/master/components/AddToWallet.tsx
+- animatable: https://github.com/antoniocosentino/flippingCards/blob/master/views/ChallengeModePlaying.tsx

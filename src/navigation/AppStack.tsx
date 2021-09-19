@@ -23,7 +23,7 @@ export default function AppStack() {
       <Screen name="Browse" component={Browse} />
       <Screen name="Create" component={CreateVideo} />
       <Screen name="Profile" component={Profile} />
-      <Screen name="Video" component={Video} />
+      <Screen name="Video" component={Video} options={{headerShown: true}}/>
       <Screen name="Genre" component={Genre} initialParams={{}} options={{headerShown: true}}/>
       <Screen name="Lesson" component={Lesson} options={{headerShown: true}}/>
       <Screen name="Congrats" component={Congrats} />

@@ -6,12 +6,20 @@ import { NativeStackScreenProps, NativeStackNavigationProp } from "@react-naviga
 import { AppStackParamList } from "./AppStackParams";
 import { AuthenticatedUserContext, lessonProps, stepProps } from "../../navigation/AuthenticatedUserProvider";
 import { Firebase } from "../../services/Firebase";
+import firebase from "firebase"
 
 type Props = NativeStackScreenProps<AppStackParamList, "Lesson">
 type lessonScreenProp = NativeStackNavigationProp<AppStackParamList, "Lesson">
 type ItemProps = {
   item: stepProps,
   index: number
+}
+
+type userProps = {
+  email: string,
+  lessonsCompleted?: string[],
+  lessonsInProgress?: string[],
+  username?: string
 }
 
 const {width, height} = Dimensions.get("window")
@@ -24,6 +32,61 @@ const Lesson = ({route}: Props) => {
 
   const navigation = useNavigation<lessonScreenProp>()
 
+  const addLessonInProgress = async () => {
+    navigation.navigate("Video", params)
+
+    try {
+      const getUserDoc = await Firebase
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .get()
+      
+        const userData: any = getUserDoc.data()
+        
+        //if lesson is neither Completed nor inProgress, then add lesson to inProgress
+        if (! userData.lessonsCompleted.includes(params.name)) {
+          try {
+            await Firebase
+            .firestore()
+            .collection("users")
+            .doc(user.uid)
+            .update({
+              lessonsInProgress: firebase.firestore.FieldValue.arrayUnion(params.name)
+            })
+          } catch (err) {
+            console.log(`error adding lesson to inProgress: ${err}`)
+          }
+        }
+    } catch (err) {
+      console.log(`error finding completed lesson: ${err}`)
+    }
+  }
+
+  const moveLessonToCompleted = async () => {
+    navigation.navigate("Congrats", params)
+
+    try {
+      await Firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        lessonsInProgress: firebase.firestore.FieldValue.arrayRemove(params.name)
+      })
+
+      await Firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        lessonsCompleted: firebase.firestore.FieldValue.arrayUnion(params.name)
+      })
+    } catch (err) {
+      console.log(`error adding lesson to inProgress: ${err}`)
+    }
+  }
+
   const renderSteps = ({item, index}: ItemProps) => (
     <ListItem 
       title={`${index + 1}. ${item.title}`}
@@ -33,7 +96,9 @@ const Lesson = ({route}: Props) => {
 
   return (
     <>
-      <Layout style={styles.videoScreen}/>
+      <Layout style={styles.videoScreen}>
+        <Button style={styles.button} onPress={addLessonInProgress}>{`Start     > Lesson`}</Button>
+      </Layout>
       <Layout style={styles.infoScreen}>
         <Layout>
           <Layout style={styles.layoutStyle}>
@@ -46,13 +111,13 @@ const Lesson = ({route}: Props) => {
           </Layout>
           <Layout style={[styles.layoutStyle, {flexDirection: "row"}]}>
             <Text style={styles.title}>How To Do It</Text>
-            <Text style={{left: width*0.59}}>{`${params.steps.length} Steps`}</Text>
+            <Text style={{left: width*0.57}}>{`${params.steps.length} Steps`}</Text>
           </Layout>
           <List 
             data={params.steps}
             renderItem={renderSteps}
           />
-          <Button style={styles.completeButton} onPress={() => navigation.navigate("Congrats", params)}>Mark Lesson as Complete</Button>
+          <Button style={styles.completeButton} onPress={moveLessonToCompleted}>Mark Lesson as Complete</Button>
         </Layout>
       </Layout>
     </>
@@ -69,7 +134,16 @@ const styles = StyleSheet.create({
   },
   videoScreen: { 
     backgroundColor: "olive",
-    height: height * 0.2 + 32
+    height: height * 0.2 + 32,
+    justifyContent: 'center',
+    alignItems: "center",
+  },
+  button: {
+    width: 100,
+    height: 48,
+    alignSelf: "flex-end",
+
+    borderRadius: 50
   },
   infoScreen: {
     position: "absolute",

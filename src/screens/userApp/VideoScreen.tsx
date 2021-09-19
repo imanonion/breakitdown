@@ -13,7 +13,7 @@ const Video: FunctionComponent = () => {
   const [videoURL, setVideoURL] = useState("")
 
   let storage = Firebase.storage()
-  let pathReference = storage.ref("/breaking/Tutorial Videos .mp4")
+  let pathReference = storage.ref("/videos/Breaking_Kick_Step.mp4")
   console.log(`pathReference: ${pathReference}`)
 
   pathReference.getDownloadURL()
@@ -29,7 +29,6 @@ const Video: FunctionComponent = () => {
   return (
     <Layout style={styles.container}>
       <VideoPlayer videoUri={videoURL}/>
-      <Button onPress={() => Alert.alert("Lesson completed!")}>Finish</Button>
     </Layout>
   );
 };
