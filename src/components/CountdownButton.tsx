@@ -28,7 +28,7 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
         >
             {({remainingTime}) => {
                 useEffect(() => {
-                    console.log("hey")
+                    console.log(remainingTime)
                     if (remainingTime === 0) {
                         redirect()
                      }
@@ -41,7 +41,6 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
                             style={[styles.nextbutton, {}]} 
                             onPress={() => {
                                 remainingTime = 0
-                                redirect()
                             }}>
                             {'>'}
                         </Button>
