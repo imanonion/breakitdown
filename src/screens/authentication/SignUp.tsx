@@ -4,23 +4,25 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import ErrorMessage from "../../components/ErrorMessage";
 import { Button, Layout, Text, Divider, Input } from "@ui-kitten/components";
 import { ProfileIcon, EmailIcon, PasswordIcon } from "../../components/Icons";
-
-
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackScreenProps, NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "./AuthStackParams";
+import { RootStackParamList } from "../RootStackParams";
 
 import firebase from "firebase";
 
 //type checking for Register screen
-type RegisterScreenProp = NativeStackScreenProps<
-  AuthStackParamList, "SignUp"
->;
+type registerScreenProp = NativeStackNavigationProp<RootStackParamList, "Auth">
+type toLoginScreenProp = NativeStackNavigationProp<AuthStackParamList, "Login">
 
-export default function SignUp({ navigation }: RegisterScreenProp) {
+export default function SignUp() {
   const [username, setUsername] = useState<string>("")
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [registerError, setRegisterError] = useState<string>("");
+
+  const navigation = useNavigation<registerScreenProp>()
+  const toLoginNavigate = useNavigation<toLoginScreenProp>()
 
   const registerUser = async () => {
     try {
@@ -37,13 +39,10 @@ export default function SignUp({ navigation }: RegisterScreenProp) {
             .set({
               username,
               email,
-              "lessons": {
-                "completed": [],
-                "inProgress": []
-              }
             });
+
+          navigation.navigate("App")
         }
-        navigation.navigate("Login")
       }
     } catch (err) {
       console.log(err.message)
@@ -73,7 +72,7 @@ export default function SignUp({ navigation }: RegisterScreenProp) {
       <Layout style={styles.loginMessage}>
         <Text>Already have an account?</Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => toLoginNavigate.navigate("Login")}
           style={{ marginHorizontal: 5 }}
         >
           <Text style={styles.loginText}>
