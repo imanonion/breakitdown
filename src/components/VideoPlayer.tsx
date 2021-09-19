@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
     },
     video: {
       width: width,
-      height: height/1.5,
+      height: height*0.8,
     },
   });

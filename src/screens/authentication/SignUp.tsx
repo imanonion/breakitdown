@@ -38,8 +38,8 @@ export default function SignUp({ navigation }: RegisterScreenProp) {
               username,
               email,
               "lessons": {
-                "completed": {},
-                "inProgress": {}
+                "completed": [],
+                "inProgress": []
               }
             });
         }
