@@ -10,17 +10,12 @@ interface Props {
 }
 
 const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
-    
-    const navigation = useNavigation()
-    console.log(isPlaying)
-    console.log(redirect)
 
     return (
-        
         <CountdownCircleTimer
             isPlaying={isPlaying}
-            duration={3}
-            initialRemainingTime={3}
+            duration={5}
+            initialRemainingTime={5}
             size={60}
             strokeLinecap={'round'}
             strokeWidth={8}
@@ -42,7 +37,7 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
                     <Layout style={styles.nextbutton}>
                         <Button 
                             style={[styles.nextbutton, {}]} 
-                            onPress={redirect}>
+                            onPress={() => remainingTime = 0}>
                             {'>'}
                         </Button>
                     </Layout>
@@ -57,7 +52,7 @@ export default CountdownButton
 
 const styles = StyleSheet.create ({
     nextbutton: {
-        borderRadius: 50,
+        borderRadius: 100,
         borderWidth: 0,
     },
 })
