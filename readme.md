@@ -18,6 +18,7 @@ Struggles:
 - expo does not have perfect integration with Firebase (e.g. authentication)
 - documentation on linking expo and firebase were not clear (e.g. need to create web app to get the firebaseConfig info)
 - disallow firebase from automatically logging in user after they sign up
+- firestore doesn't have "push" or "add" commands to add nested objects to existing objects. hence, I had to restructure the users collection to store each move as a document for each user.
 
 Solved but struggled:
 - SVG positioning (SVG taken from Figma which was easy, but did not know how to position the SVG...now I know I have to use viewbox)

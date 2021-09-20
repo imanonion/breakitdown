@@ -39,6 +39,8 @@ export default function SignUp() {
             .set({
               username,
               email,
+              lessonsInProgress: {},
+              lessonsCompleted: {}
             });
 
           navigation.navigate("App")

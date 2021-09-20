@@ -1,4 +1,4 @@
-import React, { useContext, FunctionComponent } from "react";
+import React, { useContext, FunctionComponent, useState } from "react";
 import { StyleSheet, Dimensions, Alert } from "react-native";
 import { Button, Layout, Text, Divider, Input, List, ListItem } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
@@ -7,6 +7,7 @@ import { AppStackParamList } from "./AppStackParams";
 import { AuthenticatedUserContext, lessonProps, stepProps } from "../../navigation/AuthenticatedUserProvider";
 import { Firebase } from "../../services/Firebase";
 import firebase from "firebase"
+import { convertCompilerOptionsFromJson } from "typescript";
 
 type Props = NativeStackScreenProps<AppStackParamList, "Lesson">
 type lessonScreenProp = NativeStackNavigationProp<AppStackParamList, "Lesson">
@@ -26,6 +27,7 @@ const {width, height} = Dimensions.get("window")
 
 const Lesson = ({route}: Props) => {
   const { user } = useContext(AuthenticatedUserContext);
+  let lessons: any = []
 
   //get params passed from Genre page
   const { params } = route
@@ -36,28 +38,29 @@ const Lesson = ({route}: Props) => {
     navigation.navigate("Video", params)
 
     try {
-      const getUserDoc = await Firebase
-        .firestore()
-        .collection("users")
-        .doc(user.uid)
-        .get()
       
-        const userData: any = getUserDoc.data()
-        
-        //if lesson is neither Completed nor inProgress, then add lesson to inProgress
-        if (! userData.lessonsCompleted.includes(params.name)) {
-          try {
-            await Firebase
-            .firestore()
-            .collection("users")
-            .doc(user.uid)
-            .update({
-              lessonsInProgress: firebase.firestore.FieldValue.arrayUnion(params.name)
-            })
-          } catch (err) {
-            console.log(`error adding lesson to inProgress: ${err}`)
+      //check if field exists in completed document
+      let checkLessonExists = false
+
+      await Firebase.firestore().collection('users').doc(user.uid).collection('lessons')
+        .doc('completed').get().then((doc) => {
+          let completedDoc = doc.data()
+          if (completedDoc?.hasOwnProperty(params.name)) {
+            checkLessonExists = true
           }
-        }
+        })
+
+      //if field does not already exist, add lesson to inProgress document
+      if (checkLessonExists == false) {
+        await Firebase.firestore().collection('users').doc(user.uid).collection('lessons')
+          .doc('inProgress').update({
+            [params.name]: {
+              params, 
+              added_at: firebase.firestore.FieldValue.serverTimestamp()
+            }
+        })
+      }
+      
     } catch (err) {
       console.log(`error finding completed lesson: ${err}`)
     }
@@ -67,21 +70,20 @@ const Lesson = ({route}: Props) => {
     navigation.navigate("Congrats", params)
 
     try {
-      await Firebase
-      .firestore()
-      .collection("users")
-      .doc(user.uid)
-      .update({
-        lessonsInProgress: firebase.firestore.FieldValue.arrayRemove(params.name)
+      //add lesson to completed document
+      await Firebase.firestore().collection('users').doc(user.uid).collection('lessons')
+      .doc('completed').update({
+        [params.name]: {
+          params, 
+          added_at: firebase.firestore.FieldValue.serverTimestamp()
+        }
       })
 
-      await Firebase
-      .firestore()
-      .collection("users")
-      .doc(user.uid)
-      .update({
-        lessonsCompleted: firebase.firestore.FieldValue.arrayUnion(params.name)
-      })
+      //remove lesson from inProgress document
+      await Firebase.firestore().collection('users').doc(user.uid).collection('lessons')
+      .doc('inProgress').update({
+        [params.name]: firebase.firestore.FieldValue.delete()})
+
     } catch (err) {
       console.log(`error adding lesson to inProgress: ${err}`)
     }
@@ -172,3 +174,64 @@ const styles = StyleSheet.create({
     borderRadius: 35,
   },
 });
+
+
+//----old code storing lesson status in arrays---------//
+//lessonsInProgress
+// const collection: any = {}
+  // snapshot.forEach(doc => {
+  //   collection[doc.id] = doc.data()
+  // })
+
+  // console.log(collection) 
+  
+  //if params.name does not exist in collection.keys, then add the move as a document
+  
+    // const userData: any = getUserDoc.data()
+    // console.log(userData)
+    
+    // if (userData.lessons.completed) {
+    //   //if lesson is neither Completed nor inProgress, then add lesson to inProgress
+    //   if (! userData.lessonsCompleted.includes(params.name)) {
+        // try {
+        //   await Firebase
+        //   .firestore()
+        //   .collection("users")
+        //   .doc(user.uid)
+        //   .set({
+        //     [`lessonsInProgress.${params.name}`] : firebase.firestore.FieldValue.serverTimestamp()
+        //   }, {merge: true})
+        // } catch (err) {
+        //   console.log(`error adding lesson to inProgress with completed: ${err}`)
+        // }
+    //   }
+    // } else if (! userData.lessonscompleted) {
+    //   try {
+    //     await Firebase
+    //     .firestore()
+    //     .collection("users")
+    //     .doc(user.uid)
+    //     .update({
+    //       lessonsInProgress: {name: params.name, updated_at: firebase.firestore.FieldValue.serverTimestamp()}
+    //     })
+    //   } catch (err) {
+    //     console.log(`error adding lesson to inProgress: ${err}`)
+    //   }
+    // }
+
+//lessonsCompleted
+// await Firebase
+  // .firestore()
+  // .collection("users")
+  // .doc(user.uid)
+  // .update({
+  //   lessonsInProgress: {name: params.name, updated_at: firebase.firestore.FieldValue.serverTimestamp()}
+  // })
+
+  // await Firebase
+  // .firestore()
+  // .collection("users")
+  // .doc(user.uid)
+  // .update({
+  //   lessonsCompleted: {name: params.name, updated_at: firebase.firestore.FieldValue.serverTimestamp()}
+  // })
