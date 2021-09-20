@@ -56,7 +56,8 @@ const Lesson = ({route}: Props) => {
           .doc('inProgress').update({
             [params.name]: {
               params, 
-              added_at: firebase.firestore.FieldValue.serverTimestamp()
+              added_at: firebase.firestore.FieldValue.serverTimestamp(),
+              status: "In Progress"
             }
         })
       }
@@ -75,7 +76,8 @@ const Lesson = ({route}: Props) => {
       .doc('completed').update({
         [params.name]: {
           params, 
-          added_at: firebase.firestore.FieldValue.serverTimestamp()
+          added_at: firebase.firestore.FieldValue.serverTimestamp(),
+          status: "Completed"
         }
       })
 

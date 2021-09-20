@@ -1,24 +1,59 @@
-import React, { useContext, FunctionComponent } from "react";
+import React, { useContext, FunctionComponent, useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
-import { Button, Layout, Text, Divider, Input, useTheme } from "@ui-kitten/components";
+import { Button, Layout, Text, Divider, Input, useTheme, Card, List } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps, NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppStackParamList } from "./AppStackParams";
-import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProvider";
+import { AuthenticatedUserContext, lessonProps } from "../../navigation/AuthenticatedUserProvider";
 
 import { Firebase } from "../../services/Firebase";
 
 type homeScreenProp = NativeStackNavigationProp<AppStackParamList, "Home">
 
+type activitiesType = {
+  added_at: {nanoseconds: number, seconds: number},
+  params: lessonProps,
+  status: string
+}
+
 const Home: FunctionComponent = () => {
   const { user, username } = useContext(AuthenticatedUserContext);
+  const [activities, setActivities] = useState([] as activitiesType[])
   const theme = useTheme()
 
   const navigation = useNavigation<homeScreenProp>()
+
+  //get lessons collection
+  useEffect(() => {
+    Firebase.firestore().collection("users").doc(user.uid).collection("lessons").get()
+      .then((snapshot) => {
+        let getActivities: activitiesType[] = []
+        snapshot.docs.forEach((doc) => {
+          const data = doc.data() as {[key:string]: activitiesType}
+          const getValues = Object.values(data)
+          const concatArray = getActivities.concat(getValues)
+          getActivities = concatArray
+        })
+        setActivities(getActivities)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
   
   const goToVideo = () => {
     navigation.navigate({key: "Video"})
   }
+
+  // const renderItem = ({item}) => {
+  //   <Card status="basic">
+  //     <Text>name</Text>
+  //     <Text>Lesson: genre</Text>
+  //     <Text>Status</Text>
+  //     {/* button passes lessonProps */}
+  //     <Button>{'>'}</Button>
+  //   </Card>
+  // }
 
   return (
     <Layout style={styles.container}>
@@ -32,9 +67,9 @@ const Home: FunctionComponent = () => {
         <Text style={{fontWeight: "bold", fontSize: 32}}>{username}</Text>
       </Layout>
       <Text style={[styles.title, {top: 100}]}>Latest Activities</Text>
-      <Layout>
-        
-      </Layout>
+      {/* <List 
+        renderItem={renderItem}
+      /> */}
     </Layout>
   );
 };

@@ -1,17 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { StyleSheet, Image, Animated } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import DanceWelcomeSVG from "../../../assets/dance/danceWelcomeSVG";
-import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProvider";
+import { AuthenticatedUserContext, lessonProps } from "../../navigation/AuthenticatedUserProvider";
 import { Firebase } from '../../services/Firebase';
 import { AppStackParamList } from "./AppStackParams";
 
 type authWelcomeScreenProp = NativeStackNavigationProp<AppStackParamList, "AuthWelcome">
 
-export default function OnboardWelcome() {
-    const {username, setUsername} = useContext(AuthenticatedUserContext)
+export default function AuthWelcome() {
+    const {username, setUsername, setHipHopLessons, setBreakingLessons} = useContext(AuthenticatedUserContext)
     const theme = useTheme()
 
     const navigation = useNavigation<authWelcomeScreenProp>()
@@ -19,6 +19,28 @@ export default function OnboardWelcome() {
     const navigateToAppScreens = () => {
         navigation.navigate("Tabs")
     }
+
+    useEffect(() => {
+        //get lessons collection and push each lesson into lessonsArray
+        Firebase.firestore().collection('lessons').get()
+            .then((snapshot) => {
+            const hipHopClass: lessonProps[] = []
+            const breakingClass: lessonProps[] = []
+            snapshot.docs.forEach((doc) => {
+                const data = doc.data() as lessonProps
+                if(data.genre === "Hip Hop") {
+                    hipHopClass.push(data)
+                } else if(data.genre === "Breaking") {
+                    breakingClass.push(data)
+                }
+            })
+            setHipHopLessons(hipHopClass)
+            setBreakingLessons(breakingClass)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }, [])
 
     return (
         <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

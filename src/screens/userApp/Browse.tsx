@@ -26,29 +26,6 @@ const Browse = () => {
     {"genre": "Breaking", "description": ""}
   ]
 
-  useEffect(() => {
-    //get lessons collection and push each lesson into lessonsArray
-    Firebase.firestore().collection('lessons').get()
-      .then((snapshot) => {
-        const hipHopClass: lessonProps[] = []
-        const breakingClass: lessonProps[] = []
-        snapshot.docs.forEach((doc) => {
-          const data = doc.data() as lessonProps
-            if(data.genre === "Hip Hop") {
-              hipHopClass.push(data)
-            } else if(data.genre === "Breaking") {
-              breakingClass.push(data)
-            }
-        })
-      setHipHopLessons(hipHopClass)
-      setBreakingLessons(breakingClass)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [])
-  
-
   genreList[0].description = `1 out of ${hipHopLessons.length} completed`
   genreList[1].description = `1 out of ${breakingLessons.length} completed`
 
