@@ -17,7 +17,7 @@ const Home: FunctionComponent = () => {
   const navigation = useNavigation<homeScreenProp>()
   
   const goToVideo = () => {
-    navigation.navigate("Video")
+    navigation.navigate({key: "Video"})
   }
 
   return (
@@ -28,13 +28,13 @@ const Home: FunctionComponent = () => {
         <Text style={styles.logoText}>down</Text>
       </Layout>
       <Layout style={styles.welcome}>
-        <Text style={{fontSize: 18}}>Welcome Back,</Text> 
-        <Text style={{fontWeight: "bold", fontSize: 20}}>{username}</Text>
+        <Text style={{fontSize: 18}}>Keep Dancing,</Text> 
+        <Text style={{fontWeight: "bold", fontSize: 32}}>{username}</Text>
       </Layout>
-      {/* <Text>Your UID is: {user.uid}</Text> */}
-      
-
-      <Button onPress={goToVideo}>Go to video</Button>
+      <Text style={[styles.title, {top: 100}]}>Latest Activities</Text>
+      <Layout>
+        
+      </Layout>
     </Layout>
   );
 };
@@ -50,8 +50,9 @@ const styles = StyleSheet.create({
   logo: {
     flexDirection: "row",
     position: 'absolute',
-    top: 10,
-    left: 10
+    top: 1,
+    right: 3,
+    alignSelf: "flex-end"
   },
   logoText: {
     fontSize: 18,
@@ -59,7 +60,15 @@ const styles = StyleSheet.create({
   },
   welcome: {
     position: 'absolute',
-    top: 50,
+    top: 3,
     left: 10
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    fontStyle: "italic",
+    alignSelf: "flex-start",
+    marginLeft: 10,
+    position: "absolute"
   }
 });
