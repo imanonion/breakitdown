@@ -52,11 +52,12 @@ const Lesson = ({route}: Props) => {
 
       //if field does not already exist, add lesson to inProgress document
       if (checkLessonExists == false) {
+        let timestamp = new Date().toISOString()
         await Firebase.firestore().collection('users').doc(user.uid).collection('lessons')
           .doc('inProgress').update({
             [params.name]: {
               params, 
-              added_at: firebase.firestore.FieldValue.serverTimestamp(),
+              added_at: timestamp,
               status: "In Progress"
             }
         })
@@ -71,12 +72,13 @@ const Lesson = ({route}: Props) => {
     navigation.navigate("Congrats", params)
 
     try {
+      let timestamp = new Date().toISOString()
       //add lesson to completed document
       await Firebase.firestore().collection('users').doc(user.uid).collection('lessons')
       .doc('completed').update({
         [params.name]: {
           params, 
-          added_at: firebase.firestore.FieldValue.serverTimestamp(),
+          added_at: timestamp,
           status: "Completed"
         }
       })

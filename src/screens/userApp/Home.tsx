@@ -7,6 +7,7 @@ import { AppStackParamList } from "./AppStackParams";
 import { AuthenticatedUserContext, lessonProps } from "../../navigation/AuthenticatedUserProvider";
 
 import { Firebase } from "../../services/Firebase";
+import _ from "lodash"
 
 type homeScreenProp = NativeStackNavigationProp<AppStackParamList, "Home">
 
@@ -36,9 +37,16 @@ const Home: FunctionComponent = () => {
         })
         setActivities(getActivities)
       })
+      .then(() => {
+        //sort by time in descending order
+        const sortActivities = _.orderBy(activities, "added_at", "desc")
+        setActivities(sortActivities)
+      })
       .catch((err) => {
         console.log(err)
       })
+
+    
   }, [])
   
   const goToVideo = () => {
