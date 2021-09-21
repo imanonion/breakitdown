@@ -49,6 +49,7 @@ const Home: FunctionComponent = () => {
         setActivities(sortActivities)
       })
       .then(() => {
+        //get 3 latest activities to display
         const latestActivities = activities.slice(0, 3)
         setActivities(latestActivities)
       })
