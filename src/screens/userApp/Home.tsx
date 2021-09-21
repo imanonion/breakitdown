@@ -1,5 +1,5 @@
 import React, { useContext, FunctionComponent, useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { Button, Layout, Text, Divider, Input, useTheme, Card, List } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps, NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -16,6 +16,12 @@ type activitiesType = {
   params: lessonProps,
   status: string
 }
+
+type Props = {
+  item: activitiesType
+}
+
+const {width, height} = Dimensions.get("screen")
 
 const Home: FunctionComponent = () => {
   const { user, username } = useContext(AuthenticatedUserContext);
@@ -39,29 +45,29 @@ const Home: FunctionComponent = () => {
       })
       .then(() => {
         //sort by time in descending order
-        const sortActivities = _.orderBy(activities, "added_at", "desc")
+        const sortActivities = _.orderBy(activities, ["added_at"], ["desc"])
         setActivities(sortActivities)
+      })
+      .then(() => {
+        const latestActivities = activities.slice(0, 3)
+        setActivities(latestActivities)
+      })
+      .then(() => {
+        console.log(activities)
       })
       .catch((err) => {
         console.log(err)
       })
-
-    
   }, [])
-  
-  const goToVideo = () => {
-    navigation.navigate({key: "Video"})
-  }
 
-  // const renderItem = ({item}) => {
-  //   <Card status="basic">
-  //     <Text>name</Text>
-  //     <Text>Lesson: genre</Text>
-  //     <Text>Status</Text>
-  //     {/* button passes lessonProps */}
-  //     <Button>{'>'}</Button>
-  //   </Card>
-  // }
+  const renderItem = ({item}: Props) => (
+    <Card status="basic" style={styles.cardStyle}>
+      <Text style={styles.genreStyle}>{item.params.name}</Text>
+      <Text>{`${item.params.type}: ${item.params.genre}`}</Text>
+      <Text>{item.status}</Text>
+      <Button style={styles.button} onPress={() => navigation.navigate("Lesson", item.params)}>{'>'}</Button>
+    </Card>
+  )
 
   return (
     <Layout style={styles.container}>
@@ -75,9 +81,13 @@ const Home: FunctionComponent = () => {
         <Text style={{fontWeight: "bold", fontSize: 32}}>{username}</Text>
       </Layout>
       <Text style={[styles.title, {top: 100}]}>Latest Activities</Text>
-      {/* <List 
-        renderItem={renderItem}
-      /> */}
+      <Layout style={styles.cardLayout}>
+        <List
+          data={activities}
+          renderItem={renderItem}
+        />
+      </Layout>
+
     </Layout>
   );
 };
@@ -113,5 +123,23 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginLeft: 10,
     position: "absolute"
+  },
+  cardLayout: {
+    position: "absolute",
+    top: 150, 
+    width: width
+  },
+  cardStyle: {
+    marginBottom: 5
+  },
+  genreStyle: {
+    fontWeight: "bold",
+    fontSize: 20
+  },
+  button: {
+    width:48,
+    height: 48,
+    alignSelf: "flex-end",
+    borderRadius: 50,
   }
 });

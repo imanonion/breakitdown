@@ -33,9 +33,9 @@ export default function AuthWelcome() {
                     } else if(data.genre === "Breaking") {
                         breakingClass.push(data)
                     }
-            })
-            setHipHopLessons(hipHopClass)
-            setBreakingLessons(breakingClass)
+                })
+                setHipHopLessons(hipHopClass)
+                setBreakingLessons(breakingClass)
         })
         .catch((err) => {
             console.log(err)
