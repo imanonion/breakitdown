@@ -18,7 +18,8 @@ type browseScreenProp = NativeStackNavigationProp<AppStackParamList, "Browse">
 
 const Browse = () => {
   const { user, hipHopLessons, setHipHopLessons, breakingLessons, setBreakingLessons } = useContext(AuthenticatedUserContext);
-
+  const [hipHopCompleted, setHipHopCompleted] = useState(0)
+  const [breakingCompleted, setBreakingCompleted] = useState(0)
   const navigation = useNavigation<browseScreenProp>()
 
   const genreList = [
@@ -27,30 +28,30 @@ const Browse = () => {
   ]
 
   useEffect(() => {
-    //get lessons collection and push each lesson into lessonsArray
-    Firebase.firestore().collection('lessons').get()
-      .then((snapshot) => {
-        const hipHopClass: lessonProps[] = []
-        const breakingClass: lessonProps[] = []
-        snapshot.docs.forEach((doc) => {
-          const data = doc.data() as lessonProps
-            if(data.genre === "Hip Hop") {
-              hipHopClass.push(data)
-            } else if(data.genre === "Breaking") {
-              breakingClass.push(data)
-            }
-        })
-      setHipHopLessons(hipHopClass)
-      setBreakingLessons(breakingClass)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    //get no of completed classes per genre
+    Firebase.firestore().collection("users").doc(user.uid).collection("lessons").doc("completed").get()
+      .then((doc) => {
+        const data = doc.data()
+        let noOfHipHop = 0
+        let noOfBreaking = 0
+        for (const property in data) {
+          const genre: string = data[property].params.genre
+          if (genre == "Hip Hop") {
+            noOfHipHop++
+          } else if (genre == "Breaking") {
+            noOfBreaking++
+          }
+        }
+        setHipHopCompleted(noOfHipHop)
+        setBreakingCompleted(noOfBreaking)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, [])
-  
 
-  genreList[0].description = `1 out of ${hipHopLessons.length} completed`
-  genreList[1].description = `1 out of ${breakingLessons.length} completed`
+  genreList[0].description = `${hipHopCompleted} out of ${hipHopLessons.length} completed`
+  genreList[1].description = `${breakingCompleted} out of ${breakingLessons.length} completed`
 
   const renderItem = ({item}: Props) => (
     <Card status="primary" style={styles.cardStyle}>
