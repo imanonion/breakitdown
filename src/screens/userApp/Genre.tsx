@@ -22,7 +22,7 @@ const Genre = ({route}: Props) => {
   const [thumbnailURL, setThumbnailURL] = useState("")
 
   //get params passed from Browse page
-  const { genre,  } = route.params
+  const { genre } = route.params
  
   const navigation = useNavigation<genreScreenProp>()
 
@@ -38,14 +38,13 @@ const Genre = ({route}: Props) => {
 
   const renderItem = ({item}: ItemProps) => (
     <Card status="primary" style={styles.cardStyle}>
-      <Layout style={{width: width}}>
-        <ImageBackground source={{uri: item.storageThumbnailRef}} style={{}}>
+      <Layout>
+        <ImageBackground source={{uri: item.storageThumbnailRef}} resizeMode="stretch" style={{height: height*0.09, justifyContent: "center"}}>
           <Button style={styles.button} onPress={() => navigation.navigate("Lesson", item)}>{'>'}</Button>
         </ImageBackground>
-        {/* <Image style={{height: 135, width: 155}} source={{uri: item.storageThumbnailRef}} /> */}
       </Layout>
       <Layout style={styles.title}>
-        <Text style={styles.genreStyle}>{`${item.name}`}</Text>
+        <Text style={styles.nameStyle}>{`${item.name}`}</Text>
         <Text style={styles.duration}>{`${item.duration}`}</Text>
       </Layout>
       <Text style={{fontSize: 14}}>{`${item.type}`}</Text>
@@ -67,7 +66,6 @@ const Genre = ({route}: Props) => {
 };
 
 export default Genre;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -82,10 +80,7 @@ const styles = StyleSheet.create({
     width: width,
     height: height * 0.18
   },
-  imageStyle: {
-
-  },
-  genreStyle: {
+  nameStyle: {
     fontWeight: "bold",
     fontSize: 16
   },
@@ -96,7 +91,8 @@ const styles = StyleSheet.create({
     borderRadius: 50
   },
   title: {
-    flexDirection: "row"
+    flexDirection: "row",
+    marginTop: 5
   },
   duration: {
     alignSelf: "flex-end",
