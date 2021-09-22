@@ -32,3 +32,4 @@ Yet to solve:
 - onboard redirect bug
 - scrollview: https://github.com/antoniocosentino/flippingCards/blob/master/components/AddToWallet.tsx
 - animatable: https://github.com/antoniocosentino/flippingCards/blob/master/views/ChallengeModePlaying.tsx
+- why can't retrieve homepage data sometimes?!

@@ -8,30 +8,33 @@ import VideoPlayer from "../../components/VideoPlayer";
 
 import { Firebase } from "../../services/Firebase";
 
+type Props = NativeStackScreenProps<AppStackParamList, "Video">
 
-const Video: FunctionComponent = () => {
-  const [videoURL, setVideoURL] = useState("")
+function Video({ route }: Props) {
+  const { user } = useContext(AuthenticatedUserContext);
+  const [videoURL, setVideoURL] = useState("");
 
-  let storage = Firebase.storage()
-  let pathReference = storage.ref("/videos/Breaking_Kick_Step.mp4")
-  console.log(`pathReference: ${pathReference}`)
+  const {params} = route
+  console.log(params)
+
+  let storage = Firebase.storage();
+  let pathReference = storage.ref(params.storageVideoRef);
+  console.log(`pathReference: ${pathReference}`);
 
   pathReference.getDownloadURL()
     .then((url) => {
-      setVideoURL(url)
+      setVideoURL(url);
     })
     .catch((err) => {
-      console.log(`error getting videoURL: ${err}`)
-    })
-
-  const { user } = useContext(AuthenticatedUserContext);
+      console.log(`error getting videoURL: ${err}`);
+    });
 
   return (
     <Layout style={styles.container}>
-      <VideoPlayer videoUri={videoURL}/>
+      <VideoPlayer videoUri={videoURL} />
     </Layout>
   );
-};
+}
 
 export default Video;
 

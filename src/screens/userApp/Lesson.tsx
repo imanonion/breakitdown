@@ -1,5 +1,5 @@
 import React, { useContext, FunctionComponent, useState } from "react";
-import { StyleSheet, Dimensions, Alert } from "react-native";
+import { StyleSheet, Dimensions, Alert, ImageBackground } from "react-native";
 import { Button, Layout, Text, Divider, Input, List, ListItem } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps, NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -27,7 +27,6 @@ const {width, height} = Dimensions.get("window")
 
 const Lesson = ({route}: Props) => {
   const { user } = useContext(AuthenticatedUserContext);
-  let lessons: any = []
 
   //get params passed from Genre page
   const { params } = route
@@ -103,7 +102,9 @@ const Lesson = ({route}: Props) => {
   return (
     <>
       <Layout style={styles.videoScreen}>
-        <Button style={styles.button} onPress={addLessonInProgress}>{`Start     > Lesson`}</Button>
+        <ImageBackground source={{uri: params.storageThumbnailRef}} style={{width: '100%', height: '100%'}}>
+          <Button style={styles.button} onPress={addLessonInProgress}>{`Start     > Lesson`}</Button>
+        </ImageBackground>
       </Layout>
       <Layout style={styles.infoScreen}>
         <Layout>
@@ -139,8 +140,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   videoScreen: { 
-    backgroundColor: "olive",
-    height: height * 0.2 + 32,
+    height: height * 0.25,
     justifyContent: 'center',
     alignItems: "center",
   },
@@ -148,16 +148,13 @@ const styles = StyleSheet.create({
     width: 100,
     height: 48,
     alignSelf: "flex-end",
-
     borderRadius: 50
   },
   infoScreen: {
     position: "absolute",
     height: height * 0.6 + 82,
-    transform: [{translateY: height * 0.2}],
-    borderRadius: 32,
+    transform: [{translateY: height * 0.25}],
     padding: 5,
-    paddingTop: 15,
     alignItems: "center"
   },
   layoutStyle: {
@@ -172,7 +169,7 @@ const styles = StyleSheet.create({
   },
   completeButton: {
     alignSelf: "center",
-    bottom: 5,
+    bottom: height*0.06,
     width: 315,
     height: 60,
     borderRadius: 35,
