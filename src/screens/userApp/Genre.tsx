@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, Image, ImageSourcePropType, Dimensions } from "react-native";
+import { StyleSheet, Image, ImageSourcePropType, Dimensions, ImageBackground } from "react-native";
 import { Button, Layout, Text, Divider, Input, Card, List } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps, NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -22,25 +22,9 @@ const Genre = ({route}: Props) => {
   const [thumbnailURL, setThumbnailURL] = useState("")
 
   //get params passed from Browse page
-  const { genre, description } = route.params
+  const { genre,  } = route.params
  
   const navigation = useNavigation<genreScreenProp>()
-
-  // const getThumbnailURL = (urlRef: string) => {
-  //   let storage = Firebase.storage()
-  //   let pathReference = storage.ref(urlRef)
-  //   console.log(pathReference)
-
-  //   pathReference.getDownloadURL()
-  //     .then((url) => {
-  //       setThumbnailURL(url)
-  //     })
-  //     .catch((err) => {
-  //       console.log(`error getting thumbnail: ${err}`)
-  //     })
-
-  //   return thumbnailURL
-  // }
 
   useEffect(() => {
     if (genre === "Hip Hop") {
@@ -48,12 +32,18 @@ const Genre = ({route}: Props) => {
     } else if (genre === "Breaking") {
       setLesson(breakingLessons)
     }
+
+    console.log(lesson)
   }, [])
 
   const renderItem = ({item}: ItemProps) => (
     <Card status="primary" style={styles.cardStyle}>
-      {/* <Image source={{uri: getThumbnailURL(item.storageThumbnailRef)}} /> */}
-      <Button style={styles.button} onPress={() => navigation.navigate("Lesson", item)}>{'>'}</Button>
+      <Layout style={{width: width}}>
+        <ImageBackground source={{uri: item.storageThumbnailRef}} style={{}}>
+          <Button style={styles.button} onPress={() => navigation.navigate("Lesson", item)}>{'>'}</Button>
+        </ImageBackground>
+        {/* <Image style={{height: 135, width: 155}} source={{uri: item.storageThumbnailRef}} /> */}
+      </Layout>
       <Layout style={styles.title}>
         <Text style={styles.genreStyle}>{`${item.name}`}</Text>
         <Text style={styles.duration}>{`${item.duration}`}</Text>
@@ -85,12 +75,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   listStyle: {
-    
+    width: width,
   },
   cardStyle: {
     marginBottom: 5,
     width: width,
     height: height * 0.18
+  },
+  imageStyle: {
+
   },
   genreStyle: {
     fontWeight: "bold",
@@ -119,3 +112,32 @@ const styles = StyleSheet.create({
   }
 });
 
+//Code to get the downloadURLs of thumbnails, then use the firestore urls directly
+// useEffect(() => {
+//   Firebase.firestore().collection("lessons").get()
+//   .then((snapshot) => {
+//     snapshot.docs.forEach((doc) => {
+//       const data = doc.data()
+//       getThumbnailURL(data.storageThumbnailRef)
+//     })
+//   })
+//   .catch((err) => {
+//     console.log(`err in genre: ${err}`)
+//   })
+// }, [])
+
+
+
+// const getThumbnailURL = (urlRef: string) => {
+//   let storage = Firebase.storage()
+//   let pathReference = storage.ref(urlRef)
+//   console.log(pathReference)
+
+//   pathReference.getDownloadURL()
+//     .then((url) => {
+//       console.log(url)
+//     })
+//     .catch((err) => {
+//       console.log(`error getting thumbnail: ${err}`)
+//     })
+// }
