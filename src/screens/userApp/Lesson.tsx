@@ -27,7 +27,6 @@ const {width, height} = Dimensions.get("window")
 
 const Lesson = ({route}: Props) => {
   const { user } = useContext(AuthenticatedUserContext);
-  let lessons: any = []
 
   //get params passed from Genre page
   const { params } = route
