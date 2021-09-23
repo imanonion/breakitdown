@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Image, Animated } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import CountdownButton from "../../components/CountdownButton";
@@ -11,7 +11,7 @@ type onboardOneScreenProp = NativeStackNavigationProp<OnboardStackParamList, "On
 
 export default function OnboardOne() {
     const [isPlaying, setIsPlaying] = React.useState(true)
-
+    const [shouldStillRedirect, setShouldStillRedirect] = useState(true)
     const navigation = useNavigation<onboardOneScreenProp>()
 
     const navigateToOnboardTwo = () => {
@@ -27,7 +27,12 @@ export default function OnboardOne() {
             <Text style={styles.titleText}>A step a day</Text>
             <Text style={styles.captionText}>Dancing is meant to be fun! Let’s take it one step at a time.</Text>
             <Layout style={styles.button}>
-                <CountdownButton isPlaying={isPlaying} redirect={navigateToOnboardTwo} />
+                <CountdownButton 
+                    isPlaying={isPlaying} 
+                    redirect={navigateToOnboardTwo}
+                    shouldStillRedirect={shouldStillRedirect}
+                    setShouldStillRedirect={setShouldStillRedirect}
+                    />
             </Layout>
             
         </Layout>
