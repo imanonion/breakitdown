@@ -41,21 +41,23 @@ const Home: FunctionComponent = () => {
           const concatArray = getActivities.concat(getValues)
           getActivities = concatArray
         })
-        setActivities(getActivities)
-      })
-      .then(() => {
-        //sort by time in descending order
-        const sortActivities = _.orderBy(activities, ["added_at"], ["desc"])
-        setActivities(sortActivities)
-      })
-      .then(() => {
-        //get 3 latest activities to display
-        const latestActivities = activities.slice(0, 3)
+        const sortActivities = _.orderBy(getActivities, ["added_at"], ["desc"])
+        const latestActivities = sortActivities.slice(0, 3)
         setActivities(latestActivities)
       })
-      .then(() => {
-        console.log(activities)
-      })
+      // .then(() => {
+      //   //sort by time in descending order
+      //   const sortActivities = _.orderBy(activities, ["added_at"], ["desc"])
+      //   setActivities(sortActivities)
+      // })
+      // .then(() => {
+      //   //get 3 latest activities to display
+      //   const latestActivities = activities.slice(0, 3)
+      //   setActivities(latestActivities)
+      // })
+      // .then(() => {
+      //   console.log(activities)
+      // })
       .catch((err) => {
         console.log(err)
       })

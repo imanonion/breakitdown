@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import { StyleSheet, Image, Animated } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import CountdownButton from "../../components/CountdownButton";
@@ -13,6 +13,7 @@ type onboardThreeScreenProp = NativeStackNavigationProp<RootStackParamList, "Onb
 export default function OnboardThree() {
     const {user, setUser} = useContext(AuthenticatedUserContext);
     const [isPlaying, setIsPlaying] = React.useState(true)
+    const [shouldStillRedirect, setShouldStillRedirect] = useState(true)
 
     const navigation = useNavigation<onboardThreeScreenProp>()
 
@@ -29,7 +30,9 @@ export default function OnboardThree() {
             <Text style={styles.titleText}>Track your goals</Text>
             <Text style={styles.captionText}>Tell us your goals so we can help you achieve them.</Text>
             <Layout style={styles.button}>
-                <CountdownButton isPlaying={isPlaying} redirect={navigateToAppOrAuth} />
+                <CountdownButton isPlaying={isPlaying} redirect={navigateToAppOrAuth} 
+                shouldStillRedirect={shouldStillRedirect}
+                setShouldStillRedirect={setShouldStillRedirect}/>
             </Layout>
             
         </Layout>

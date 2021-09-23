@@ -5,17 +5,24 @@ import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { useNavigation, CommonActions } from "@react-navigation/native";
 
 interface Props {
-    isPlaying: boolean,
-    redirect: () => void
+    isPlaying: boolean;
+    redirect: () => void;
+    shouldStillRedirect: boolean;
+    setShouldStillRedirect: (arg: boolean) => void;
 }
 
-const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
+const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect, shouldStillRedirect, setShouldStillRedirect}) => {
+
+    const handleSkipClick = () => {
+        setShouldStillRedirect(false)
+        redirect()
+
+    }
 
     return (
         <CountdownCircleTimer
             isPlaying={isPlaying}
             duration={3}
-            initialRemainingTime={3}
             size={60}
             strokeLinecap={'round'}
             strokeWidth={8}
@@ -24,14 +31,14 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
             ['#F7B801', 0.4],
             ['#A30000', 0.2],
             ]}
-            onComplete={() => {[false, 1]}}
+            onComplete={() => {[false, 0]}}
         >
             {({remainingTime}) => {
                 useEffect(() => {
                     console.log(remainingTime)
-                    if (remainingTime === 0) {
+                    if(shouldStillRedirect && remainingTime === 0) {
                         redirect()
-                     }
+                    }
     
                 }, [remainingTime])
 
@@ -39,9 +46,7 @@ const CountdownButton: FunctionComponent<Props> = ({isPlaying, redirect}) => {
                     <Layout style={styles.nextbutton}>
                         <Button 
                             style={[styles.nextbutton, {}]} 
-                            onPress={() => {
-                                remainingTime = 0
-                            }}>
+                            onPress={handleSkipClick}>
                             {'>'}
                         </Button>
                     </Layout>

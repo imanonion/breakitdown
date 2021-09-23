@@ -1,16 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { StyleSheet, Image, Animated } from "react-native";
 import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 import CountdownButton from "../../components/CountdownButton";
 import DanceTwoSVG from "../../../assets/dance/danceTwoSVG";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamsList } from "../RootStackParams";
+import { RootStackParamList } from "../RootStackParams";
+import { OnboardStackParamList } from "./OnboardStackParams";
 
-type onboardThreeScreenProp = NativeStackNavigationProp<RootStackParamsList, "OnboardThree">
+
+type onboardThreeScreenProp = NativeStackNavigationProp<OnboardStackParamList, "OnboardOne">
 
 export default function OnboardWelcome() {
     const [isPlaying, setIsPlaying] = React.useState(true)
+    const [shouldStillRedirect, setShouldStillRedirect] = useState(true)
 
     const navigation = useNavigation<onboardThreeScreenProp>()
 
@@ -27,7 +30,8 @@ export default function OnboardWelcome() {
             <Text style={styles.titleText}>Routines made easy</Text>
             <Text style={styles.captionText}>Combine moves easily to make a choreography routine you can call your own.</Text>
             <Layout style={styles.button}>
-                <CountdownButton isPlaying={isPlaying} redirect={navigateToOnboardThree} />
+                <CountdownButton isPlaying={isPlaying} redirect={navigateToOnboardThree} shouldStillRedirect={shouldStillRedirect}
+                setShouldStillRedirect={setShouldStillRedirect}/>
             </Layout>
             
         </Layout>
