@@ -77,7 +77,7 @@ export default function Login({ navigation }: LoginScreenProp) {
 
       <Layout style={styles.forgotPassword}>
       <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <Text style={{textDecorationLine: "underline"}}> Forgot your password?</Text>
+          <Text style={{textDecorationLine: "underline"}}>Forgot your password?</Text>
       </TouchableOpacity>
       </Layout>
 

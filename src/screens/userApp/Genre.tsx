@@ -32,14 +32,12 @@ const Genre = ({route}: Props) => {
     } else if (genre === "Breaking") {
       setLesson(breakingLessons)
     }
-
-    console.log(lesson)
   }, [])
 
   const renderItem = ({item}: ItemProps) => (
     <Card status="primary" style={styles.cardStyle}>
       <Layout>
-        <ImageBackground source={{uri: item.storageThumbnailRef}} resizeMode="stretch" style={{height: height*0.09, justifyContent: "center"}}>
+        <ImageBackground source={{uri: item.storageThumbnailRef}} resizeMode="stretch" style={{height: height*0.2, justifyContent: "center"}}>
           <Button style={styles.button} onPress={() => navigation.navigate("Lesson", item)}>{'>'}</Button>
         </ImageBackground>
       </Layout>
@@ -78,7 +76,7 @@ const styles = StyleSheet.create({
   cardStyle: {
     marginBottom: 5,
     width: width,
-    height: height * 0.18
+    height: height * 0.3
   },
   nameStyle: {
     fontWeight: "bold",

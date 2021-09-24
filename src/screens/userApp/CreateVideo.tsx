@@ -12,7 +12,7 @@ const CreateVideo: FunctionComponent = () => {
 
   return (
     <Layout style={styles.container}>
-      <Text>CREATE VIDEO</Text>
+      <Text>Coming Soon...</Text>
     </Layout>
   );
 };

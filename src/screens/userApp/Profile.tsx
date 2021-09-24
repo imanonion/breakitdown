@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     top: 10,
     left: 10,
     fontWeight: "bold",
-    fontSize: 36
+    fontSize: 32
   },
   logoutStyle: {
     position: "absolute",

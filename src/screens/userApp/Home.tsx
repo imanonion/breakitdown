@@ -45,19 +45,6 @@ const Home: FunctionComponent = () => {
         const latestActivities = sortActivities.slice(0, 3)
         setActivities(latestActivities)
       })
-      // .then(() => {
-      //   //sort by time in descending order
-      //   const sortActivities = _.orderBy(activities, ["added_at"], ["desc"])
-      //   setActivities(sortActivities)
-      // })
-      // .then(() => {
-      //   //get 3 latest activities to display
-      //   const latestActivities = activities.slice(0, 3)
-      //   setActivities(latestActivities)
-      // })
-      // .then(() => {
-      //   console.log(activities)
-      // })
       .catch((err) => {
         console.log(err)
       })
@@ -65,10 +52,14 @@ const Home: FunctionComponent = () => {
 
   const renderItem = ({item}: Props) => (
     <Card status="basic" style={styles.cardStyle}>
-      <Text style={styles.genreStyle}>{item.params.name}</Text>
-      <Text>{`${item.params.type}: ${item.params.genre}`}</Text>
-      <Text>{item.status}</Text>
-      <Button style={styles.button} onPress={() => navigation.navigate("Lesson", item.params)}>{'>'}</Button>
+      <Layout style={{flexDirection: "row"}}>
+        <Layout>
+          <Text style={styles.genreStyle}>{item.params.name}</Text>
+          <Text>{`${item.params.type}: ${item.params.genre}`}</Text>
+          <Text>{item.status}</Text>
+        </Layout>
+        <Button style={styles.button} onPress={() => navigation.navigate("Lesson", item.params)}>{'>'}</Button>
+      </Layout>
     </Card>
   )
 
@@ -83,7 +74,9 @@ const Home: FunctionComponent = () => {
         <Text style={{fontSize: 18}}>Keep Dancing,</Text> 
         <Text style={{fontWeight: "bold", fontSize: 32}}>{username}</Text>
       </Layout>
-      <Text style={[styles.title, {top: 100}]}>Latest Activities</Text>
+      <Layout style={[styles.title, {backgroundColor: theme['color-primary-default']}]}>
+        <Text style={styles.titleTextStyle}>Latest Activities</Text>
+      </Layout>
       <Layout style={styles.cardLayout}>
         <List
           data={activities}
@@ -120,20 +113,22 @@ const styles = StyleSheet.create({
     left: 10
   },
   title: {
-    fontSize: 16,
+    position: "absolute",
+    top: 100,
+    width: width
+  },
+  titleTextStyle: {
+    fontSize: 24,
     fontWeight: "bold",
-    fontStyle: "italic",
-    alignSelf: "flex-start",
-    marginLeft: 10,
-    position: "absolute"
+    alignSelf: "center",
   },
   cardLayout: {
     position: "absolute",
-    top: 150, 
+    top: 133, 
     width: width
   },
   cardStyle: {
-    marginBottom: 5
+    width: width
   },
   genreStyle: {
     fontWeight: "bold",
@@ -142,7 +137,9 @@ const styles = StyleSheet.create({
   button: {
     width:48,
     height: 48,
-    alignSelf: "flex-end",
+    alignSelf: "center",
+    position: "absolute",
+    right: 10,
     borderRadius: 50,
   }
 });
