@@ -17,12 +17,12 @@ Anyone can dance! Get groovin'~ :woman_dancing:
 
 ----------
 ## Tools used :toolbox:
-**Planning** :triangular_ruler:	
+:triangular_ruler: **Planning** 
 - [Miro](https://miro.com/): Brainstorming of app ideas, Creating User stories, Flow Diagram, Timeline
 - [Trello](https://trello.com/en): Kanban board to track progress
 - [Figma](https://www.figma.com/): Design
 
-**Development** :iphone:
+:iphone: **Development**
 - Expo: Framework for React Native app
 - React Native: Framework for building native iOS and Android apps using React
 - Android Studio: Android device emulator
