@@ -1,5 +1,5 @@
 # breakitdown
-#### Project 4
+### Project 4
 
 [Check it out](https://expo.dev/@imanonion/breakitdown) on the Expo app!
 
@@ -7,15 +7,14 @@ Download Expo on your [Android](https://play.google.com/store/apps/details?id=ho
 
 Then, scan the QR code:
 
-<img src="https://github.com/imanonion/breakitdown/blob/master/assets/expo-breakitdown.png" width="100" height="100">
-
-<!-- ![QR Code](https://github.com/imanonion/breakitdown/blob/master/assets/expo-breakitdown.png width="200" height="200") -->
+<img src="https://github.com/imanonion/breakitdown/blob/master/assets/expo-breakitdown.png" width="100" height="100" alt="breakitdown">
 
 **Introduction**
+
 breakitdown is a micro-learning mobile app that breaks down dance steps into easily digestible, a-step-a-day lessons. 
 
 ----------
-### Tools used
+## Tools used
 **Planning**
 - [Miro](https://miro.com/): Brainstorming of app ideas, Creating User stories, Flow Diagram, Timeline
 - [Trello](https://trello.com/en): Kanban board to track progress
@@ -31,7 +30,7 @@ breakitdown is a micro-learning mobile app that breaks down dance steps into eas
 
 ----------
 
-#### Considerations
+## Considerations
 Why android?
 - Phone is android (easy to use with expo go app)
 - Insufficient space on computer to use Xcode
@@ -44,7 +43,7 @@ Why TypeScript?
 - Type checking functionality => catch errors before they occur in production
 - Better documentation => easy to understand code written
 
-#### Lessons learned & Future Enhancements
+### Lessons learned & Future Enhancements
 
 **Solved but struggled:**
 - SVG positioning (SVG taken from Figma, but did not know how to position the SVG...now I know I have to use viewbox)
