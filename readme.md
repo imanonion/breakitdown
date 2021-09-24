@@ -5,7 +5,10 @@
 
 Download Expo on your [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www) device. App was not built for [iOS](https://itunes.apple.com/app/apple-store/id982107779), but you can try...
 
-Then, scan the QR code: ![QR Code](https://github.com/imanonion/breakitdown/blob/master/assets/expo-breakitdown.png "QR Code")
+Then, scan the QR code: 
+[<img src="https://github.com/imanonion/breakitdown/blob/master/assets/expo-breakitdown.png" width="100" height="100 />](https://github.com/imanonion/breakitdown/blob/master/assets/expo-breakitdown.png)
+
+<!-- ![QR Code](https://github.com/imanonion/breakitdown/blob/master/assets/expo-breakitdown.png width="200" height="200") -->
 
 **Introduction**
 breakitdown is a micro-learning mobile app that breaks down dance steps into easily digestible, a-step-a-day lessons. 
