@@ -3,12 +3,12 @@
 
 [Check it out](https://expo.dev/@imanonion/breakitdown) on the Expo app!
 Download Expo on your [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www) device. App was not built for [iOS](https://itunes.apple.com/app/apple-store/id982107779), but you can try...
-Then, scan the QR code: (https://github.com/imanonion/breakitdown/tree/master/assets/expo-breakitdown.png)
+Then, scan the QR code: ![alt text](https://github.com/imanonion/breakitdown/tree/master/assets/expo-breakitdown.png "QR Code")
 
 **Introduction**
 breakitdown is a micro-learning mobile app that breaks down dance steps into easily digestible, a-step-a-day lessons. 
 
-===
+=========
 
 ### Tools used
 **Planning**
@@ -24,7 +24,7 @@ breakitdown is a micro-learning mobile app that breaks down dance steps into eas
 - TypeScript: Typed superset of Javascript that compiles to plain Javascript
 - UI Kitten: UI Library for React Native apps
 
-===
+=========
 
 #### Considerations
 Why android?
