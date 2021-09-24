@@ -39,7 +39,7 @@ export default function Congrats({route}: Props) {
                 <Text style={styles.captionText}>Dance is the hidden language of the soul</Text>
                 <Text style={styles.captionText}>- Martha Graham</Text>
             </Layout>
-            <Button style={styles.button} onPress={navigateToAppScreens}>Back to Home</Button>
+            <Button style={styles.button} onPress={navigateToAppScreens}>Back to Browse</Button>
         </Layout>
     );
 }

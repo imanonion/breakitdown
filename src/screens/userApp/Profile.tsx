@@ -1,5 +1,5 @@
 import React, { useContext, FunctionComponent } from "react";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { Button, Layout, Text, Divider, Input } from "@ui-kitten/components";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackParamList } from "./AppStackParams";
@@ -10,10 +10,12 @@ import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProv
 
 import { Firebase } from "../../services/Firebase";
 
+const { width, height } = Dimensions.get("screen")
+
 type profileScreenProp = NativeStackNavigationProp<RootStackParamList, "App">
 
 const Profile: FunctionComponent = () => {
-  const { user } = useContext(AuthenticatedUserContext);
+  const { user, username } = useContext(AuthenticatedUserContext);
 
   const navigation = useNavigation<profileScreenProp>()
 
@@ -32,9 +34,14 @@ const Profile: FunctionComponent = () => {
 
   return (
     <Layout style={styles.container}>
-      <Text>Welcome {user.email}!</Text>
-      <Button onPress={logout}>LOG OUT</Button>
-      <Text>Your UID is: {user.uid}</Text>
+      <Text style={styles.usernameStyle}>{username}</Text>
+      <Button style={styles.logoutStyle} onPress={logout}>LOG OUT</Button>
+      <Text style={styles.emailStyle}>Email: {user.email}</Text>
+      <Layout style={styles.creditsLayout}>
+        <Text style={styles.creditStyle}>Credits:</Text>
+        <Text style={{fontSize: 12}}>AIST Dance Video Database
+        @ https://aistdancedb.ongaaccel.jp</Text>
+      </Layout>
     </Layout>
   );
 };
@@ -47,4 +54,32 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  usernameStyle: {
+    position: "absolute",
+    alignSelf: "flex-start",
+    top: 10,
+    left: 10,
+    fontWeight: "bold",
+    fontSize: 36
+  },
+  logoutStyle: {
+    position: "absolute",
+    alignSelf: "flex-end",
+    top: 10,
+    right: 10
+  },
+  emailStyle: {
+    position: "absolute",
+    alignSelf: "flex-start",
+    left: 10,
+    top: 60
+  },
+  creditsLayout: {
+    position: "absolute",
+    bottom: 10,
+  },
+  creditStyle: {
+    fontWeight: "bold",
+    fontSize: 12
+  }
 });
