@@ -9,7 +9,7 @@ Then, scan the QR code:
 
 <img src="https://github.com/imanonion/breakitdown/blob/master/assets/expo-breakitdown.png" width="100" height="100" alt="breakitdown">
 
-**Introduction**
+## Introduction
 
 breakitdown is a micro-learning mobile app that breaks down dance steps into easily digestible, a-step-a-day lessons. 
 
