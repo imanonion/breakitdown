@@ -1,7 +1,7 @@
 # breakitdown
 ### Project 4
 
-[Check it out](https://expo.dev/@imanonion/breakitdown) on the Expo app!
+Check it out on the Expo app: [breakitdown](https://expo.dev/@imanonion/breakitdown)
 
 Download Expo on your [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www) device. App was not built for [iOS](https://itunes.apple.com/app/apple-store/id982107779), but you can try...
 
