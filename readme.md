@@ -59,3 +59,4 @@ Why TypeScript?
 - Add scrollview for lesson page
 - Add animations between and within screens
 - Disallow firebase from automatically logging in user after they sign up
+- Hard coded the pages to navigate to. Should store navigation in another global component to track current screen
